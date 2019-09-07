@@ -3,29 +3,31 @@
 > # Clases:
 
 1. Productos
-2. Empleados
+2. - Empleados - 
 3. Areas de Crianza y Cuidado
 4. Materia Prima Animal
 5. Materia Prima Vegetal
 6. Transportes
-7. Distribuidores
+7.  - - Areas de Eventos - - 
 8. Clientes
 9. Proveedores
+10. Maquinaria (inventario) - uso -
 
-> # Procesos:
+> # Objetivos
 
 ## Criticos
 * Gestión de Asignación de Corrales y Prados para Animales
-* Gestión de Actividades para Empleados
-* Control de Ventas
-
-## Opcionales
-* Gestión Transporte de Productos y Dsitibuidores
 * Control de Transformacion de Materia Prima en Productos
+* Gestion Comercial
+* Gestión de Transporte de Productos
 * Gestión de Inventarios y Proveedores
 
+## Opcionales
+* Asignación de Labores para Empleados
+
 ## Deseables
-* Facturación
+* Administracion de Eventos Varios
+
 
 > # Control Docente:
 - e-mail: LENPRO_PUCE@YAHOO.COM
