@@ -13,7 +13,7 @@
 9. Proveedores
 10. Maquinaria (inventario) - uso -
 
-> # Objetivos
+> # Objetivos (Funcional)
 
 ## Criticos
 * Gestión de Asignación de Corrales y Prados para Animales
