@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     11/10/2019 18:11:54                          */
+/* Created on:     12/10/2019 11:18:39                          */
 /*==============================================================*/
 
 
@@ -74,11 +74,17 @@ drop index ASIGNAR_AREA_FK;
 
 drop index ASIGNAR_AREA3_FK;
 
+alter table ASIGNAR_AREA
+   drop primary key cascade;
+
 drop table ASIGNAR_AREA cascade constraints;
 
 drop index ASIGNAR_AREA2_FK;
 
 drop index ASIGNAR_AREA4_FK;
+
+alter table ASIGNAR_AREA2
+   drop primary key cascade;
 
 drop table ASIGNAR_AREA2 cascade constraints;
 
@@ -86,11 +92,17 @@ drop index ASIGNAR_CUIDADOS_FK;
 
 drop index ASIGNAR_CUIDADOS2_FK;
 
+alter table ASIGNAR_CUIDADOS
+   drop primary key cascade;
+
 drop table ASIGNAR_CUIDADOS cascade constraints;
 
 drop index ASIGNARCUIDADOS2_FK;
 
 drop index ASIGNARCUIDADOS3_FK;
+
+alter table ASIGNAR_CUIDADOS2
+   drop primary key cascade;
 
 drop table ASIGNAR_CUIDADOS2 cascade constraints;
 
@@ -117,6 +129,9 @@ alter table INVENTARIO_PRODUCTOS
    drop primary key cascade;
 
 drop table INVENTARIO_PRODUCTOS cascade constraints;
+
+alter table LOGS
+   drop primary key cascade;
 
 drop table LOGS cascade constraints;
 
@@ -146,11 +161,17 @@ drop index TRANSFORMAR_FK;
 
 drop index TRANSFORMAR3_FK;
 
+alter table TRANSFORMAR
+   drop primary key cascade;
+
 drop table TRANSFORMAR cascade constraints;
 
 drop index TRANSFORMAR2_FK;
 
 drop index TRANSFORMAR4_FK;
+
+alter table TRANSFORMAR2
+   drop primary key cascade;
 
 drop table TRANSFORMAR2 cascade constraints;
 
@@ -158,7 +179,42 @@ drop index VENDER_FK;
 
 drop index VENDER2_FK;
 
+alter table VENDER
+   drop primary key cascade;
+
 drop table VENDER cascade constraints;
+
+drop sequence S_ASIGNAR_AREA;
+
+drop sequence S_ASIGNAR_AREA2;
+
+drop sequence S_ASIGNAR_CUIDADOS;
+
+drop sequence S_ASIGNAR_CUIDADOS2;
+
+drop sequence S_LOGS;
+
+drop sequence S_TRANSFORMAR;
+
+drop sequence S_TRANSFORMAR2;
+
+drop sequence S_VENDER;
+
+create sequence S_ASIGNAR_AREA;
+
+create sequence S_ASIGNAR_AREA2;
+
+create sequence S_ASIGNAR_CUIDADOS;
+
+create sequence S_ASIGNAR_CUIDADOS2;
+
+create sequence S_LOGS;
+
+create sequence S_TRANSFORMAR;
+
+create sequence S_TRANSFORMAR2;
+
+create sequence S_VENDER;
 
 /*==============================================================*/
 /* Table: ANIMALES                                              */
@@ -205,8 +261,12 @@ alter table AREAS
 create table ASIGNAR_AREA 
 (
    CODANIMAL            CHAR(10)             not null,
-   IDAREA               CHAR(10)             not null
+   IDAREA               CHAR(10)             not null,
+   ID_ASNGAR            NUMBER(6)            not null
 );
+
+alter table ASIGNAR_AREA
+   add constraint PK_ASIGNAR_AREA primary key (ID_ASNGAR);
 
 /*==============================================================*/
 /* Index: ASIGNAR_AREA3_FK                                      */
@@ -228,8 +288,12 @@ create index ASIGNAR_AREA_FK on ASIGNAR_AREA (
 create table ASIGNAR_AREA2 
 (
    IDAREA               CHAR(10),
-   IDPLANTA             CHAR(10)
+   IDPLANTA             CHAR(10),
+   ID_AS2               NUMBER(6)            not null
 );
+
+alter table ASIGNAR_AREA2
+   add constraint PK_ASIGNAR_AREA2 primary key (ID_AS2);
 
 /*==============================================================*/
 /* Index: ASIGNAR_AREA4_FK                                      */
@@ -253,8 +317,12 @@ create table ASIGNAR_CUIDADOS
    IDINVENTARIOINSUMO   INTEGER              not null,
    CODINSUMO            CHAR(10)             not null,
    CODANIMAL            CHAR(10)             not null,
-   CANTIDAD             INTEGER              not null
+   CANTIDAD             INTEGER              not null,
+   ID_CUID              NUMBER(6)            not null
 );
+
+alter table ASIGNAR_CUIDADOS
+   add constraint PK_ASIGNAR_CUIDADOS primary key (ID_CUID);
 
 /*==============================================================*/
 /* Index: ASIGNAR_CUIDADOS2_FK                                  */
@@ -279,8 +347,12 @@ create table ASIGNAR_CUIDADOS2
    IDINVENTARIOINSUMO   INTEGER              not null,
    CODINSUMO            CHAR(10)             not null,
    IDPLANTA             CHAR(10)             not null,
-   CANTIDAD             INTEGER              not null
+   CANTIDAD             INTEGER              not null,
+   ID_CUID2             NUMBER(6)            not null
 );
+
+alter table ASIGNAR_CUIDADOS2
+   add constraint PK_ASIGNAR_CUIDADOS2 primary key (ID_CUID2);
 
 /*==============================================================*/
 /* Index: ASIGNARCUIDADOS3_FK                                   */
@@ -374,8 +446,12 @@ create table LOGS
    OPERACION            CHAR(20),
    DATOSFINALES         CHAR(20),
    FECHA                DATE                 not null,
-   USUARIO              CHAR(20)
+   USUARIO              CHAR(20),
+   ID_LOG               NUMBER(6)            not null
 );
+
+alter table LOGS
+   add constraint PK_LOGS primary key (ID_LOG);
 
 /*==============================================================*/
 /* Table: PLANTAS                                               */
@@ -447,8 +523,12 @@ create table TRANSFORMAR
 (
    IDPRODUCTO           CHAR(10)             not null,
    CODANIMAL            CHAR(10)             not null,
-   CANTIDAD             INTEGER              not null
+   CANTIDAD             INTEGER              not null,
+   ID_TANS              NUMBER(6)            not null
 );
+
+alter table TRANSFORMAR
+   add constraint PK_TRANSFORMAR primary key (ID_TANS);
 
 /*==============================================================*/
 /* Index: TRANSFORMAR3_FK                                       */
@@ -470,8 +550,12 @@ create index TRANSFORMAR_FK on TRANSFORMAR (
 create table TRANSFORMAR2 
 (
    IDPRODUCTO           CHAR(10)             not null,
-   IDPLANTA             CHAR(10)             not null
+   IDPLANTA             CHAR(10)             not null,
+   ID_TRA2              NUMBER(6)            not null
 );
+
+alter table TRANSFORMAR2
+   add constraint PK_TRANSFORMAR2 primary key (ID_TRA2);
 
 /*==============================================================*/
 /* Index: TRANSFORMAR4_FK                                       */
@@ -495,8 +579,12 @@ create table VENDER
    CEDULA               CHAR(10)             not null,
    IDINVENTARIOPRODUCTOS CHAR(10)             not null,
    IDPRODUCTO           CHAR(10)             not null,
-   CANTIDAD             INTEGER              not null
+   CANTIDAD             INTEGER              not null,
+   ID_VENTA             NUMBER(6)            not null
 );
+
+alter table VENDER
+   add constraint PK_VENDER primary key (ID_VENTA);
 
 /*==============================================================*/
 /* Index: VENDER2_FK                                            */
