@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+
+            body {
+                background-color: #FFFFFF;
+            }
+        </style>
+
+        <title> Ciclo 1</title>
+    </h:head>
+    <h:body>
+        <h:form id="form1">
+
+            <p:confirmDialog global="true">
+                <center>
+                    <p:commandButton value="Aceptar" styleClass="ui-confirmdialog-yes"></p:commandButton>
+                    <p:commandButton value="Cancelar" styleClass="ui-confirmdialog-no"></p:commandButton>
+                </center>
+            </p:confirmDialog>
+
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north">
+                    <h:panelGrid columns="2" style="width: 100%;" >                     
+                        <p:outputLabel value="SISTEMA DE GESTIÓN DE HACIENDA" ></p:outputLabel>
+                        <p:outputLabel value=" LOGIN"></p:outputLabel>                      
+                    </h:panelGrid>
+                    <p:megaMenu orientation="horizontal">
+                        <p:submenu label="Catálogos" icon="pi pi-pencil">
+                            <p:column>
+                                <p:submenu label="Interno">
+                                    <p:menuitem value="Animales" outcome="/catalogos/animales.xhtml"></p:menuitem>
+                                    <p:menuitem value="Plantas" outcome="/catalogos/plantas.xhtml"></p:menuitem>
+                                    <p:menuitem value="Areas" outcome="/catalogos/areas.xhtml"></p:menuitem>
+                                    <p:menuitem value="Tipo de Animales" outcome="/catalogos/tipo_animal.xhtml"></p:menuitem>
+                                    <p:menuitem value="Tipo de Plantas" outcome="/catalogos/tipo_planta.xhtml"></p:menuitem>
+                                </p:submenu>
+                            </p:column>
+                            <p:column>
+                                <p:submenu label="Externo">
+                                    <p:menuitem value="Productos" outcome="/catalogos/productos.xhtml"></p:menuitem>
+                                    <p:menuitem value="Clientes" outcome="/catalogos/clientes.xhtml"></p:menuitem>
+                                    <p:menuitem value="Insumos" outcome="/catalogos/insumos.xhtml"></p:menuitem>
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>
+                        <p:submenu label="Procesos" icon="pi pi-briefcase">
+                            <p:column>
+                                <p:submenu label="Interno">
+                                    <p:menuitem value="Inventario" outcome="/procesos/inventario.xhtml"></p:menuitem> 
+                                </p:submenu>
+                                <p:submenu label="Externo">
+
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>                       
+                    </p:megaMenu>
+                </p:layoutUnit>            
+                <p:layoutUnit position="south">
+                    <p:outputLabel value="Producción..."></p:outputLabel>
+                </p:layoutUnit>
+                <p:layoutUnit position="center">
+                    <ui:insert name="content"></ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+        </h:form>
+    </h:body>
+</html>
