@@ -21,3 +21,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/ProyectoHacienda/target/
+/ProyectoHacienda/ProyectoHacienda-ejb/target/
+/ProyectoHacienda/ProyectoHacienda-web/target/
+/ProyectoHacienda/ProyectoHacienda-ear/target/
