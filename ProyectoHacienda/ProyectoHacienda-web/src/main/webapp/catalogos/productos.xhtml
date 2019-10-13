@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Productos</title>
     </h:head>
@@ -13,7 +14,85 @@
                 <p:messages showDetail="true" showSummary="true">
                     <p:autoUpdate></p:autoUpdate>
                 </p:messages>
-               
+
+                <h:panelGrid id="panelCentral">
+                    <p:panel header="Listado de áreas" rendered="#{productosManagedBean.productos==null}">
+                        <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{productosManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
+                        <p:dataTable id="dtProductos" value="#{productosManagedBean.productosList}" var="prod">
+                            <p:column headerText="ID">
+                                <h:outputLabel value="#{prod.idproducto}"></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Descripción">
+                                <h:outputLabel value="#{prod.descripcion}"></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Fecha de Elaboración">
+                                <h:outputLabel value="#{prod.fechaelaboracion}">
+                                    <f:convertDateTime pattern="dd/MM/YYYY"></f:convertDateTime>
+                                </h:outputLabel>
+                            </p:column> 
+                            <p:column headerText="Fecha de Caducidad">
+                                <h:outputLabel value="#{prod.fechacaducidad}">
+                                    <f:convertDateTime pattern="dd/MM/YYYY"></f:convertDateTime>
+                                </h:outputLabel>
+                            </p:column>
+                             <p:column headerText="Peso">
+                                 <h:outputLabel value="#{prod.peso}">
+                                </h:outputLabel>
+                            </p:column>
+                             <p:column headerText="Precio">
+                                <h:outputLabel value="#{prod.precio}">
+                                </h:outputLabel>
+                            </p:column>
+                            
+                       
+                            <p:column headerText="Editar">
+                                <p:commandButton icon="ui-icon-pencil" action="#{productosManagedBean.seleccionar(prod)}" update=":form1:panelCentral"></p:commandButton>
+                            </p:column>
+                            <p:column headerText="Eliminar">
+                                <p:commandButton icon="ui-icon-trash" action="#{productosManagedBean.eliminar(prod)}" update="dtProductos">
+                                    <p:confirm header="Confirmacion" message="Confirma que desea eliminar el producto seleccionado ?"></p:confirm>
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:panel header="#{productosManagedBean.productos.idproducto==null? 'Ingreso': 'Edicion'} de productos" rendered="#{productosManagedBean.productos!=null}">
+                        
+                        <h:panelGrid columns="6">
+                            <p:outputLabel for="txtID" value="ID: "></p:outputLabel>
+                            <p:inputText id="txtID" value="#{productosManagedBean.productos.idproducto}" required="true"></p:inputText>
+                            <p:message for="txtID"></p:message>
+
+                            <p:outputLabel for="txtDescripcion" value="Descripcion: "></p:outputLabel>
+                            <p:inputText id="txtDescripcion" value="#{productosManagedBean.productos.descripcion}" required="true"></p:inputText>
+                            <p:message for="txtDimension"></p:message>
+
+                            <p:outputLabel for="calFechaElab" value="Fecha de Elaboracion: "></p:outputLabel>
+                            <p:calendar id="calFechaElab" value="#{productosManagedBean.productos.fechaelaboracion}" required="true"></p:calendar>
+                            <p:message for="calFechaElab"></p:message>
+
+                            <p:outputLabel for="calFechaCad" value="Fecha de Caducidad: "></p:outputLabel>
+                            <p:calendar id="calFechaCad" value="#{productosManagedBean.productos.fechacaducidad}" required="true" ></p:calendar>
+                            <p:message for="calFechaCad"></p:message>
+
+                            <p:outputLabel for="numPeso" value="Peso: "></p:outputLabel>
+                            <p:inputNumber id="numPeso" value="#{productosManagedBean.productos.peso}" required="true"></p:inputNumber>
+                            <p:message for="numPeso"></p:message>
+                            
+                            <p:outputLabel for="numPrecio" value="Precio: "></p:outputLabel>
+                            <p:inputNumber id="numPrecio" value="#{productosManagedBean.productos.precio}" required="true"></p:inputNumber>
+                            <p:message for="numPrecio"></p:message>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Grabar" action="#{productosManagedBean.grabar()}" update="panelCentral" ></p:commandButton>
+                            <p:commandButton value="Cancelar" action="#{productosManagedBean.cancelar()}" update="panelCentral" immediate="true"></p:commandButton>
+                        </h:panelGrid>
+                        
+                    </p:panel>
+                    
+                </h:panelGrid>
             </ui:define>
         </ui:composition>
     </h:body>
