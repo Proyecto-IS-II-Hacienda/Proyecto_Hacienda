@@ -6,7 +6,9 @@
 package grupo6.managedBeans;
 
 import grupo6.entities.TiposDeAnimales;
+import grupo6.entities.TiposDeAnimalesPK;
 import grupo6.sessions.TiposDeAnimalesFacadeLocal;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,15 +21,16 @@ import javax.faces.view.ViewScoped;
  *
  * @author gon30
  */
-@Named(value = "tipoDeAnimales")
+@Named(value = "tiposDeAnimalesManagedBean")
 @ViewScoped
-public class TiposDeAnimalesManagedBean {
+public class TiposDeAnimalesManagedBean implements Serializable {
     
 
     private TiposDeAnimales tipoAnimal;
     private List<TiposDeAnimales> listaTiposAnimales;
     @EJB
     private TiposDeAnimalesFacadeLocal TAFacadeLocal;//2
+    private TiposDeAnimalesPK tAPK;
 
     /**
      * Creates a new instance of TipodeAnimales
@@ -37,16 +40,16 @@ public class TiposDeAnimalesManagedBean {
     }
     
     @PostConstruct
-    public void init() {//3
+    public void init() {
         listaTiposAnimales = TAFacadeLocal.findAll();
-        
+        tipoAnimal = null;
         
     }
     
     
     public void grabar() {
         try {
-            if (tipoAnimal.getTiposDeAnimalesPK() == null) {
+            if (tipoAnimal.getTiposDeAnimalesPK().getNombre() == null && tipoAnimal.getTiposDeAnimalesPK().getRaza() == null) {
                 TAFacadeLocal.create(tipoAnimal);
             } else {
                 TAFacadeLocal.edit(tipoAnimal);
@@ -58,9 +61,6 @@ public class TiposDeAnimalesManagedBean {
             tipoAnimal = null;
             init();
         }
-        
-        
-
     }
     
     
@@ -72,20 +72,20 @@ public class TiposDeAnimalesManagedBean {
         tipoAnimal = new TiposDeAnimales();
     }
 
-    public List<TiposDeAnimales> getListaProductos() {
+    public List<TiposDeAnimales> getListaTipoAnimal() {
         return listaTiposAnimales;
     }
 
 
-    public void setListaProductos(List<TiposDeAnimales> listaTiposDeAnimales) {
+    public void setListaTiposAnimal(List<TiposDeAnimales> listaTiposDeAnimales) {
         this.listaTiposAnimales = listaTiposDeAnimales;
     }
 
-    public TiposDeAnimales getProducto() {
+    public TiposDeAnimales getTipoAnimal() {
         return tipoAnimal;
     }
 
-    public void setProducto(TiposDeAnimales tipoAnimal) {
+    public void setTipoAnimal(TiposDeAnimales tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
     }
 
@@ -94,8 +94,18 @@ public class TiposDeAnimalesManagedBean {
     }
 
     public void eliminar(TiposDeAnimales tipoAnimal) {
-        TAFacadeLocal.remove(tipoAnimal);
+        TAFacadeLocal.remove(new TiposDeAnimales(tipoAnimal.getTiposDeAnimalesPK().getNombre(),tipoAnimal.getTiposDeAnimalesPK().getRaza()));
         init();
     }
+
+    public TiposDeAnimalesPK gettAPK() {
+        return tAPK;
+    }
+
+    public void settAPK(TiposDeAnimalesPK tAPK) {
+        this.tAPK = tAPK;
+    }
+    
+    
     
 }

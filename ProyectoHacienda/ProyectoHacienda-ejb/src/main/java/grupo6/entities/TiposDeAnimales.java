@@ -38,6 +38,7 @@ public class TiposDeAnimales implements Serializable {
     private List<Animales> animalesList;
 
     public TiposDeAnimales() {
+    tiposDeAnimalesPK = new TiposDeAnimalesPK();
     }
 
     public TiposDeAnimales(TiposDeAnimalesPK tiposDeAnimalesPK) {
