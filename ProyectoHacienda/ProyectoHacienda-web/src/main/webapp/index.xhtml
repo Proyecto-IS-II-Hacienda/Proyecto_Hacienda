@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
     <h:head>
 
         <style type="text/css">
@@ -22,7 +23,7 @@
 
         <title> Ciclo 1</title>
     </h:head>
-    <h:body>
+    <h:body onload="#{indexManagedBean.cargarUsuarios()}" >
         <h:form id="form1">
 
             <p:confirmDialog global="true">
@@ -33,42 +34,56 @@
             </p:confirmDialog>
 
             <p:layout fullPage="true">
-                <p:layoutUnit position="north">
-                    <h:panelGrid columns="2" style="width: 100%;" >                     
-                        <p:outputLabel value="SISTEMA DE GESTIÓN DE HACIENDA" ></p:outputLabel>
-                        <p:outputLabel value=" LOGIN"></p:outputLabel>                      
-                    </h:panelGrid>
-                    <p:megaMenu orientation="horizontal">
-                        <p:submenu label="Catálogos" icon="pi pi-pencil">
-                            <p:column>
-                                <p:submenu label="Interno">
-                                    <p:menuitem value="Animales" outcome="/catalogos/animales.xhtml"></p:menuitem>
-                                    <p:menuitem value="Plantas" outcome="/catalogos/plantas.xhtml"></p:menuitem>
-                                    <p:menuitem value="Areas" outcome="/catalogos/areas.xhtml"></p:menuitem>
-                                    <p:menuitem value="Tipo de Animales" outcome="/catalogos/tipo_animal.xhtml"></p:menuitem>
-                                    <p:menuitem value="Tipo de Plantas" outcome="/catalogos/tipo_planta.xhtml"></p:menuitem>
-                                </p:submenu>
-                                
-                            </p:column>
-                            <p:column>
-                                <p:submenu label="Externo">
-                                    <p:menuitem value="Productos" outcome="/catalogos/productos.xhtml"></p:menuitem>
-                                    <p:menuitem value="Clientes" outcome="/catalogos/clientes.xhtml"></p:menuitem>
-                                    <p:menuitem value="Insumos" outcome="/catalogos/insumos.xhtml"></p:menuitem>
-                                </p:submenu>
-                            </p:column>
-                        </p:submenu>
-                        <p:submenu label="Procesos" icon="pi pi-briefcase">
-                            <p:column>
-                                <p:submenu label="Interno">
-                                    <p:menuitem value="Inventario" outcome="/procesos/inventario.xhtml"></p:menuitem> 
-                                </p:submenu>
-                                <p:submenu label="Externo">
+                <p:layoutUnit position="north">                    
+                        <h:panelGrid columns="2" style="width: 100%;" >                     
+                            <p:outputLabel value="SISTEMA DE GESTIÓN DE HACIENDA" ></p:outputLabel>
+                                                
+                            <p:commandButton value="Login" action="#{indexManagedBean.lanzarVentana()}" rendered="#{!indexManagedBean.logueado}" >
+                                <p:ajax event="dialogReturn" update="baseMenu"></p:ajax>
+                            </p:commandButton>     
+                            <p:commandButton value="Logout" action="#{indexManagedBean.logout()}" rendered="#{indexManagedBean.logueado}" update="baseMenu">
+                            </p:commandButton>   
+                        </h:panelGrid>
+                    <p:panelGrid id="baseMenu">
+                        <p:panelGrid columns="4" style="width:100%;" rendered="#{indexManagedBean.logueado}">
+                             <p:outputLabel value="Usuario: "/>
+                             <h:outputLabel value="#{indexManagedBean.usuarioLogueado.nombre}" style="color: blue;"></h:outputLabel>
+                             <p:outputLabel value="Rol: "/>
+                             <h:outputLabel value="#{indexManagedBean.usuarioLogueado.rol}" style="color: blue;"></h:outputLabel>
 
-                                </p:submenu>
-                            </p:column>
-                        </p:submenu>                       
-                    </p:megaMenu>
+                        </p:panelGrid>
+                        <p:megaMenu orientation="horizontal" rendered="#{indexManagedBean.logueado}">
+                            <p:submenu label="Catálogos" icon="pi pi-pencil">
+                                <p:column>
+                                    <p:submenu label="Interno">
+                                        <p:menuitem value="Animales" outcome="/catalogos/animales.xhtml"></p:menuitem>
+                                        <p:menuitem value="Plantas" outcome="/catalogos/plantas.xhtml"></p:menuitem>
+                                        <p:menuitem value="Areas" outcome="/catalogos/areas.xhtml"></p:menuitem>
+                                        <p:menuitem value="Tipo de Animales" outcome="/catalogos/tipo_animal.xhtml"></p:menuitem>
+                                        <p:menuitem value="Tipo de Plantas" outcome="/catalogos/tipo_planta.xhtml"></p:menuitem>
+                                    </p:submenu>
+
+                                </p:column>
+                                <p:column>
+                                    <p:submenu label="Externo">
+                                        <p:menuitem value="Productos" outcome="/catalogos/productos.xhtml"></p:menuitem>
+                                        <p:menuitem value="Clientes" outcome="/catalogos/clientes.xhtml"></p:menuitem>
+                                        <p:menuitem value="Insumos" outcome="/catalogos/insumos.xhtml"></p:menuitem>
+                                    </p:submenu>
+                                </p:column>
+                            </p:submenu>
+                            <p:submenu label="Procesos" icon="pi pi-briefcase">
+                                <p:column>
+                                    <p:submenu label="Interno">
+                                        <p:menuitem value="Inventario" outcome="/procesos/inventario.xhtml"></p:menuitem> 
+                                    </p:submenu>
+                                    <p:submenu label="Externo">
+
+                                    </p:submenu>
+                                </p:column>
+                            </p:submenu>                       
+                        </p:megaMenu>
+                    </p:panelGrid>
                 </p:layoutUnit>            
                 <p:layoutUnit position="south">
                     <p:outputLabel value="Producción..."></p:outputLabel>
