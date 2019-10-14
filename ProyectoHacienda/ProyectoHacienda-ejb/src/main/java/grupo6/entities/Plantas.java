@@ -60,7 +60,7 @@ public class Plantas implements Serializable {
     private List<Transformar2> transformar2List;
     @JoinColumn(name = "NOMBREDEPLANTA", referencedColumnName = "NOMBREDEPLANTA")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TiposDePlantas nombredeplanta;
+    private TiposDePlantas tiposDePlanta;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplanta", fetch = FetchType.LAZY)
     private List<AsignarCuidados2> asignarCuidados2List;
     @OneToMany(mappedBy = "idplanta", fetch = FetchType.LAZY)
@@ -111,12 +111,12 @@ public class Plantas implements Serializable {
         this.transformar2List = transformar2List;
     }
 
-    public TiposDePlantas getNombredeplanta() {
-        return nombredeplanta;
+    public TiposDePlantas getTiposDePlanta() {
+        return tiposDePlanta;
     }
 
-    public void setNombredeplanta(TiposDePlantas nombredeplanta) {
-        this.nombredeplanta = nombredeplanta;
+    public void setTiposDePlanta(TiposDePlantas tiposDePlanta) {
+        this.tiposDePlanta = tiposDePlanta;
     }
 
     @XmlTransient

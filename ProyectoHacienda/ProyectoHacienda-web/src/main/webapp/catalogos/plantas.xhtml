@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Plantas</title>
     </h:head>
@@ -13,7 +14,71 @@
                 <p:messages showDetail="true" showSummary="true">
                     <p:autoUpdate></p:autoUpdate>
                 </p:messages>
-               
+                <h:panelGrid columns="1" id="panelCentral" style="width: 100%">
+                    <p:panel header="Listado de Plantas" rendered="#{plantasManagedBean.plantas==null}">
+                        <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{plantasManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
+                        <br/>
+                        <p:dataTable id="dtPlantas" value="#{plantasManagedBean.listaPlantas}" var="plan" paginator="true" rows="5">
+                            <p:column headerText="ID PLANTA" style="text-align: center" sortBy="#{plan.idplanta}" filterBy="#{plan.idplanta}" filterMatchMode="contains" width="100">
+                                <h:outputLabel value="#{plan.idplanta}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="TIPO DE PLANTA" style="text-align: center" sortBy="#{plan.tiposDePlanta.nombredeplanta}" filterBy="#{plan.tiposDePlanta.nombredeplanta}" filterMatchMode="contains">
+                                <h:outputLabel value="#{plan.tiposDePlanta.nombredeplanta}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="FECHA DE PLANTACIÓN" style="text-align: center" sortBy="#{plan.fechaplantacion}" filterBy="#{plan.fechaplantacion}" filterMatchMode="contains">
+                                <h:outputLabel value="#{plan.fechaplantacion}" style="text-transform: uppercase">
+                                    <f:convertDateTime pattern="dd/MMM/YYYY"></f:convertDateTime>
+                                </h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="OBSERVACIÓN" style="text-align: center" sortBy="#{plan.observacion}" filterBy="#{plan.observacion}" filterMatchMode="contains">
+                                <h:outputLabel value="#{plan.observacion}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="EDITAR" style="text-align: center" width="80">
+                                <p:commandButton icon="ui-icon-pencil" action="#{plantasManagedBean.seleccionar(plan)}" update=":form1:panelCentral"></p:commandButton>
+                            </p:column>
+
+                            <p:column headerText="ELIMINAR" style="text-align: center" width="80">
+                                <p:commandButton icon="ui-icon-trash" action="#{plantasManagedBean.eliminar(plan)}" update="dtPlantas">
+                                    <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar el elemento? (#{plan.idplanta})"></p:confirm>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:panel header="#{plantasManagedBean.plantas.idplanta==null ? 'Ingreso ' : 'Modificación'} de Producto" rendered="#{plantasManagedBean.plantas!=null}">
+                        <h:panelGrid columns="3">
+                            <p:outputLabel for="txtID" value="ID de planta: "></p:outputLabel>
+                            <p:inputText id="txtID" value="#{plantasManagedBean.plantas.idplanta}" required="true" requiredMessage="Campo Obligatorio"></p:inputText>
+                            <p:message for="txtID"></p:message>
+
+                            <p:outputLabel for="comTipos" value="Tipo de Planta: "></p:outputLabel>
+                            <p:selectOneMenu id="comTipos" value="#{plantasManagedBean.plantas.tiposDePlanta}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Campo Obligatorio">
+                                <f:selectItems value="#{plantasManagedBean.listaTiposDePlantas}" var="tip" itemLabel="#{tip.nombredeplanta}" itemValue="#{tip}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:message for="comTipos"></p:message>
+
+                            <p:outputLabel for="calFecha" value="Fecha: "></p:outputLabel>
+                            <p:calendar id="calFecha" value="#{plantasManagedBean.plantas.fechaplantacion}" required="true" requiredMessage="Campo Obligatorio"></p:calendar>
+                            <p:message for="calFecha"></p:message>
+
+                            <p:outputLabel for="txtObservacion" value="Observación: "></p:outputLabel>
+                            <h:panelGrid columns="1">
+                                <p:inputTextarea id="txtObservacion" rows="5" cols="30" counter="display" maxlength="1000" counterTemplate="{0} carácteres restantes." autoResize="true" value="#{plantasManagedBean.plantas.observacion}"></p:inputTextarea>
+                                <h:outputText id="display"></h:outputText>
+                            </h:panelGrid>
+                            <p:message for="txtObservacion"></p:message>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Grabar" action="#{plantasManagedBean.grabar()}" update="panelCentral"></p:commandButton>
+                            <p:commandButton value="Cancelar" action="#{plantasManagedBean.cancelar()}" update="panelCentral" immediate="true"></p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:panelGrid>
             </ui:define>
         </ui:composition>
     </h:body>
