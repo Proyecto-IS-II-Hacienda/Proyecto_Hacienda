@@ -94,7 +94,10 @@ public class TiposDeAnimalesManagedBean implements Serializable {
     }
 
     public void eliminar(TiposDeAnimales tipoAnimal) {
-        TAFacadeLocal.remove(new TiposDeAnimales(tipoAnimal.getTiposDeAnimalesPK().getNombre(),tipoAnimal.getTiposDeAnimalesPK().getRaza()));
+        System.out.println(tipoAnimal.toString());
+        TAFacadeLocal.remove(tipoAnimal);
+        System.out.println(tipoAnimal.getTiposDeAnimalesPK().toString());
+
         init();
     }
 

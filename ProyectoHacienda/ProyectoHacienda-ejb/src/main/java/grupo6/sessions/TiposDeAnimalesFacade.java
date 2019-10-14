@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Marcelo_Echeverria
  */
+
 @Stateless
 public class TiposDeAnimalesFacade extends AbstractFacade<TiposDeAnimales> implements TiposDeAnimalesFacadeLocal {
 
@@ -27,6 +28,11 @@ public class TiposDeAnimalesFacade extends AbstractFacade<TiposDeAnimales> imple
 
     public TiposDeAnimalesFacade() {
         super(TiposDeAnimales.class);
+    }
+
+    @Override
+    public void eliminar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -34,7 +34,7 @@ public class TiposDeAnimales implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TiposDeAnimalesPK tiposDeAnimalesPK;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tiposDeAnimales", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tiposDeAnimales", fetch = FetchType.LAZY,orphanRemoval = true)
     private List<Animales> animalesList;
 
     public TiposDeAnimales() {
