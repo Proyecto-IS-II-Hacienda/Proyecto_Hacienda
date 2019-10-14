@@ -16,14 +16,14 @@
                 </p:messages>
 
                 <h:panelGrid id="panelCentral">
-                    <p:panel header="Listado de áreas" rendered="#{productosManagedBean.productos==null}">
+                    <p:panel header="Listado de productos" rendered="#{productosManagedBean.productos==null}">
                         <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{productosManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
                         <p:dataTable id="dtProductos" value="#{productosManagedBean.productosList}" var="prod">
                             <p:column headerText="ID">
                                 <h:outputLabel value="#{prod.idproducto}"></h:outputLabel>
                             </p:column>
-                            <p:column headerText="Descripción">
-                                <h:outputLabel value="#{prod.descripcion}"></h:outputLabel>
+                            <p:column headerText="Nombre del animal">
+                                <h:outputLabel value="#{prod.nombreanimal}"></h:outputLabel>
                             </p:column>
                             <p:column headerText="Fecha de Elaboración">
                                 <h:outputLabel value="#{prod.fechaelaboracion}">
@@ -41,6 +41,10 @@
                             </p:column>
                              <p:column headerText="Precio">
                                 <h:outputLabel value="#{prod.precio}">
+                                </h:outputLabel>
+                            </p:column>
+                             <p:column headerText="Descripcion">
+                                 <h:outputLabel value="#{prod.descripcion}">
                                 </h:outputLabel>
                             </p:column>
                             
@@ -63,26 +67,24 @@
                             <p:outputLabel for="txtID" value="ID: "></p:outputLabel>
                             <p:inputText id="txtID" value="#{productosManagedBean.productos.idproducto}" required="true"></p:inputText>
                             <p:message for="txtID"></p:message>
-
-                            <p:outputLabel for="txtDescripcion" value="Descripcion: "></p:outputLabel>
-                            <p:inputText id="txtDescripcion" value="#{productosManagedBean.productos.descripcion}" required="true"></p:inputText>
-                            <p:message for="txtDimension"></p:message>
-
+                            <p:outputLabel for="txtNombreAnimal" value="Nombre del Animal: "></p:outputLabel>
+                            <p:inputText id="txtNombreAnimal" value="#{productosManagedBean.productos.nombreanimal}" required="true"></p:inputText>
+                            <p:message for="txtNombreAnimal"></p:message>
                             <p:outputLabel for="calFechaElab" value="Fecha de Elaboracion: "></p:outputLabel>
                             <p:calendar id="calFechaElab" value="#{productosManagedBean.productos.fechaelaboracion}" required="true"></p:calendar>
                             <p:message for="calFechaElab"></p:message>
-
                             <p:outputLabel for="calFechaCad" value="Fecha de Caducidad: "></p:outputLabel>
                             <p:calendar id="calFechaCad" value="#{productosManagedBean.productos.fechacaducidad}" required="true" ></p:calendar>
                             <p:message for="calFechaCad"></p:message>
-
                             <p:outputLabel for="numPeso" value="Peso: "></p:outputLabel>
                             <p:inputNumber id="numPeso" value="#{productosManagedBean.productos.peso}" required="true"></p:inputNumber>
                             <p:message for="numPeso"></p:message>
-                            
                             <p:outputLabel for="numPrecio" value="Precio: "></p:outputLabel>
                             <p:inputNumber id="numPrecio" value="#{productosManagedBean.productos.precio}" required="true"></p:inputNumber>
                             <p:message for="numPrecio"></p:message>
+                            <p:outputLabel for="txtDescripcion" value="Descripcion: "></p:outputLabel>
+                            <p:inputText id="txtDescripcion" value="#{productosManagedBean.productos.descripcion}" required="true"></p:inputText>
+                            <p:message for="txtDescripcion"></p:message>
                         </h:panelGrid>
 
                         <h:panelGrid columns="2">

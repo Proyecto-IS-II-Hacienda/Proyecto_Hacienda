@@ -15,7 +15,7 @@
                 </p:messages>
                  <h:panelGrid id="panelCentral">
                      <p:panel header="Listado de áreas" rendered="#{areasManagedBean.area==null}">
-                        <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{areasManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
+                         <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{areasManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
                         <p:dataTable id="dtAreas" value="#{areasManagedBean.areasList}" var="are">
                             <p:column headerText="ID">
                                 <h:outputLabel value="#{are.idarea}"></h:outputLabel>
@@ -44,28 +44,20 @@
                     </p:panel>
 
                     <p:panel header="#{areasManagedBean.area.idarea==null? 'Ingreso': 'Edicion'} de área" rendered="#{areasManagedBean.area!=null}">
-                        <h:panelGrid columns="5">
+                        <h:panelGrid columns="3">
                             <p:outputLabel for="txtID" value="ID: "></p:outputLabel>
                             <p:inputText id="txtID" value="#{areasManagedBean.area.idarea}" required="true"></p:inputText>
                             <p:message for="txtID"></p:message>
-
                             <p:outputLabel for="txtDimension" value="Dimension: "></p:outputLabel>
                             <p:inputText id="txtDimension" value="#{areasManagedBean.area.dimension}" required="true"></p:inputText>
                             <p:message for="txtDimension"></p:message>
-
-                            <p:outputLabel for="txtDimension" value="Dimension: "></p:outputLabel>
-                            <p:inputText id="txtDimension" value="#{areasManagedBean.area.dimension}" required="true"></p:inputText>
-                            <p:message for="txtDimension"></p:message>
-
                             <p:outputLabel for="numCercado" value="Cercado: "></p:outputLabel>
                             <p:inputNumber id="numCercado" value="#{areasManagedBean.area.cercado}" required="true" ></p:inputNumber>
                             <p:message for="numCercado"></p:message>
-
                             <p:outputLabel for="numUso" value="Tiempo de Uso: "></p:outputLabel>
                             <p:inputNumber id="numUso" value="#{areasManagedBean.area.tiempodeuso}" required="true"></p:inputNumber>
                             <p:message for="numUso"></p:message>
                         </h:panelGrid>
-
                         <h:panelGrid columns="2">
                             <p:commandButton value="Grabar" action="#{areasManagedBean.grabar()}" update="panelCentral" ></p:commandButton>
                             <p:commandButton value="Cancelar" action="#{areasManagedBean.cancelar()}" update="panelCentral" immediate="true"></p:commandButton>
