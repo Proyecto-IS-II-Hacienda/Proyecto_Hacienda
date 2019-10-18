@@ -89,12 +89,13 @@ public class indexManagedBean implements Serializable {
         }
     }
 
-    public void logout() {
+    public String logout() {
         logueado = false;
         usuarioLogueado = new Usuario();
+        return "/index.xhtml?redirect-faces = true";
     }
 
-    @PostConstruct
+    
     public void lanzarVentana() {
         Map<String, Object> opciones = new HashMap<>();
         opciones.put("modal", true);
