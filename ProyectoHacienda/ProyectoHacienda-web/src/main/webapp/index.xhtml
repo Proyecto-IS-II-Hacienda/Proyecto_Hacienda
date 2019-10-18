@@ -34,24 +34,24 @@
             </p:confirmDialog>
 
             <p:layout fullPage="true">
-                <p:layoutUnit position="north">                    
+                <p:layoutUnit position="north" style="width: fit-content;">    
+                    <h:panelGrid id="baseMenu" style="width: 100%;">
                         <h:panelGrid columns="2" style="width: 100%;" >                     
                             <p:outputLabel value="SISTEMA DE GESTIÓN DE HACIENDA" ></p:outputLabel>
-                                                
-                            <p:commandButton value="Login" action="#{indexManagedBean.lanzarVentana()}" rendered="#{!indexManagedBean.logueado}" >
-                                <p:ajax event="dialogReturn" update="baseMenu"></p:ajax>
-                            </p:commandButton>     
-                            <p:commandButton value="Logout" action="#{indexManagedBean.logout()}" rendered="#{indexManagedBean.logueado}" update="baseMenu">
-                            </p:commandButton>   
-                        </h:panelGrid>
-                    <p:panelGrid id="baseMenu">
-                        <p:panelGrid columns="4" style="width:100%;" rendered="#{indexManagedBean.logueado}">
-                             <p:outputLabel value="Usuario: "/>
-                             <h:outputLabel value="#{indexManagedBean.usuarioLogueado.nombre}" style="color: blue;"></h:outputLabel>
-                             <p:outputLabel value="Rol: "/>
-                             <h:outputLabel value="#{indexManagedBean.usuarioLogueado.rol}" style="color: blue;"></h:outputLabel>
 
-                        </p:panelGrid>
+                            <p:commandButton value="Login" action="#{indexManagedBean.lanzarVentana()}" rendered="#{!indexManagedBean.logueado}" >
+                                <p:ajax event="dialogReturn" update="form1:baseMenu"></p:ajax>
+                            </p:commandButton>     
+                            <p:commandButton value="Logout" action="#{indexManagedBean.logout()}" rendered="#{indexManagedBean.logueado}" update="form1:baseMenu">
+                            </p:commandButton>   
+                        </h:panelGrid>                 
+                        <h:panelGrid columns="4" style="width:100%;" rendered="#{indexManagedBean.logueado}">
+                            <p:outputLabel value="Usuario: "/>
+                            <h:outputLabel value="#{indexManagedBean.usuarioLogueado.nombre}" style="color: blue;"></h:outputLabel>
+                            <p:outputLabel value="Rol: "/>
+                            <h:outputLabel value="#{indexManagedBean.usuarioLogueado.rol}" style="color: blue;"></h:outputLabel>
+
+                        </h:panelGrid>
                         <p:megaMenu orientation="horizontal" rendered="#{indexManagedBean.logueado}">
                             <p:submenu label="Catálogos" icon="pi pi-pencil">
                                 <p:column>
@@ -83,7 +83,7 @@
                                 </p:column>
                             </p:submenu>                       
                         </p:megaMenu>
-                    </p:panelGrid>
+                    </h:panelGrid>
                 </p:layoutUnit>            
                 <p:layoutUnit position="south">
                     <p:outputLabel value="Producción..."></p:outputLabel>
