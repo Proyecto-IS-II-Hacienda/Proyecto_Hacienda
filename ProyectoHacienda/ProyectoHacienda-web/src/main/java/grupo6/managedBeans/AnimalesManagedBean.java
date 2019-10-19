@@ -37,6 +37,7 @@ public class AnimalesManagedBean implements Serializable {
     private TiposDeAnimalesFacadeLocal TAFacadeLocal;
     @EJB
     private AnimalesFacadeLocal AFacadeLocal;//2
+    private boolean flag;
 
     /**
      * Creates a new instance of TipodeAnimales
@@ -50,13 +51,13 @@ public class AnimalesManagedBean implements Serializable {
         listaAnimales = AFacadeLocal.findAll();
         listaTiposAnimales = TAFacadeLocal.findAll();
         animal = null;
-        
+        flag = false;
     }
     
     
     public void grabar() {
         try {
-            if (animal.getCodanimal() == null) {
+            if (flag) {
                 AFacadeLocal.create(animal);
             } else {
                 AFacadeLocal.edit(animal);
@@ -66,6 +67,7 @@ public class AnimalesManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error: ", "No hemos podido guardar el Animal."));
         } finally {
             animal = null;
+            flag = false;
             init();
         }
     }
@@ -73,10 +75,12 @@ public class AnimalesManagedBean implements Serializable {
     
     public void vaciar() {
         animal = null;
+        flag = false;
     }
 
     public void nuevo() {
         animal = new Animales();
+        flag = true;
     }
 
     public Animales getAnimal() {

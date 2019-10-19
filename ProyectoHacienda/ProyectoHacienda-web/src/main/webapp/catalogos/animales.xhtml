@@ -20,12 +20,12 @@
                 <h:panelGrid columns="3">
 
                     <p:outputLabel value="Código:" for="inputCodigo"></p:outputLabel>
-                    <p:inputText id ="inputCodigo" value="#{animalesManagedBean.animal.codanimal}" required="true" requiredMessage="Campo obligadotorio."></p:inputText>
+                    <p:inputMask id ="inputCodigo" value="#{animalesManagedBean.animal.codanimal}" required="true" requiredMessage="Campo obligadotorio." mask=".........."></p:inputMask>
                     <p:message for="inputCodigo" ></p:message>
 
                     <p:outputLabel value="Tipo de Animal:" for="inputTipodeAnimal"></p:outputLabel>
                     <p:selectOneMenu id = "inputTipodeAnimal" value="#{animalesManagedBean.animal.tiposDeAnimales}" required="true" requiredMessage="Campo obligadotorio." converter="omnifaces.SelectItemsConverter">
-                        <f:selectItems value="#{animalesManagedBean.listaTiposAnimales}" var="tip" itemLabel="#{tip.tiposDeAnimalesPK.nombre} #{tip.tiposDeAnimalesPK.raza}" itemValue="#{tip}"></f:selectItems>
+                        <f:selectItems value="#{animalesManagedBean.listaTiposAnimales}" var="tip" itemLabel="#{tip.tiposDeAnimalesPK.nombrereplace('0', '')} #{tip.tiposDeAnimalesPK.razareplace('0', '')}" itemValue="#{tip}"></f:selectItems>
                     </p:selectOneMenu>
                     <p:message for="inputTipodeAnimal" ></p:message>
 
@@ -64,7 +64,7 @@
                     </p:column>
                 
                 <p:column headerText="Tipos de Animales" >
-                    <h:outputLabel value="#{an.tiposDeAnimales.tiposDeAnimalesPK.nombre} #{an.tiposDeAnimales.tiposDeAnimalesPK.raza}"></h:outputLabel>
+                    <h:outputLabel value="#{an.tiposDeAnimales.tiposDeAnimalesPK.nombre.replace('0', '')} #{an.tiposDeAnimales.tiposDeAnimalesPK.raza.replace('0', '')}"></h:outputLabel>
                     </p:column>
                 
                 <p:column headerText="Peso" >

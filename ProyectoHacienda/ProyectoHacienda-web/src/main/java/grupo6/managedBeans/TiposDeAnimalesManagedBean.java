@@ -24,7 +24,6 @@ import javax.faces.view.ViewScoped;
 @Named(value = "tiposDeAnimalesManagedBean")
 @ViewScoped
 public class TiposDeAnimalesManagedBean implements Serializable {
-    
 
     private TiposDeAnimales tipoAnimal;
     private List<TiposDeAnimales> listaTiposAnimales;
@@ -36,24 +35,30 @@ public class TiposDeAnimalesManagedBean implements Serializable {
      * Creates a new instance of TipodeAnimales
      */
     public TiposDeAnimalesManagedBean() {
-        
+
     }
-    
+
     @PostConstruct
     public void init() {
         listaTiposAnimales = TAFacadeLocal.findAll();
         tipoAnimal = null;
-        
+
     }
-    
-    
+
     public void grabar() {
         try {
-            if (tipoAnimal.getTiposDeAnimalesPK().getNombre() == null && tipoAnimal.getTiposDeAnimalesPK().getRaza() == null) {
-                TAFacadeLocal.create(tipoAnimal);
-            } else {
-                TAFacadeLocal.edit(tipoAnimal);
+            tipoAnimal.setTiposDeAnimalesPK(new TiposDeAnimalesPK(tipoAnimal.getTiposDeAnimalesPK().getRaza().toUpperCase(),tipoAnimal.getTiposDeAnimalesPK().getNombre().toUpperCase()));
+            for (int i = 0; i < tipoAnimal.getTiposDeAnimalesPK().getNombre().length() ; i++) {
+                if(tipoAnimal.getTiposDeAnimalesPK().getNombre().length()==10) break;
+                else tipoAnimal.getTiposDeAnimalesPK().setNombre("0"+tipoAnimal.getTiposDeAnimalesPK().getNombre()); 
             }
+             for (int i = 0; i < tipoAnimal.getTiposDeAnimalesPK().getRaza().length() ; i++) {
+                if(tipoAnimal.getTiposDeAnimalesPK().getRaza().length()==10) break;
+                else tipoAnimal.getTiposDeAnimalesPK().setRaza("0"+tipoAnimal.getTiposDeAnimalesPK().getRaza()); 
+            }
+    
+            TAFacadeLocal.create(tipoAnimal);
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Tipo de animal guardado exitosamente!"));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, ":(", "No hemos podido guardar el tipo de Animal."));
@@ -62,8 +67,7 @@ public class TiposDeAnimalesManagedBean implements Serializable {
             init();
         }
     }
-    
-    
+
     public void vaciar() {
         tipoAnimal = null;
     }
@@ -75,7 +79,6 @@ public class TiposDeAnimalesManagedBean implements Serializable {
     public List<TiposDeAnimales> getListaTipoAnimal() {
         return listaTiposAnimales;
     }
-
 
     public void setListaTiposAnimal(List<TiposDeAnimales> listaTiposDeAnimales) {
         this.listaTiposAnimales = listaTiposDeAnimales;
@@ -108,7 +111,5 @@ public class TiposDeAnimalesManagedBean implements Serializable {
     public void settAPK(TiposDeAnimalesPK tAPK) {
         this.tAPK = tAPK;
     }
-    
-    
-    
+
 }
