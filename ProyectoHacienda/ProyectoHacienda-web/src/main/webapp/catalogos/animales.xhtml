@@ -25,7 +25,7 @@
 
                     <p:outputLabel value="Tipo de Animal:" for="inputTipodeAnimal"></p:outputLabel>
                     <p:selectOneMenu id = "inputTipodeAnimal" value="#{animalesManagedBean.animal.tiposDeAnimales}" required="true" requiredMessage="Campo obligadotorio." converter="omnifaces.SelectItemsConverter">
-                        <f:selectItems value="#{animalesManagedBean.listaTiposAnimales}" var="tip" itemLabel="#{tip.tiposDeAnimalesPK.nombrereplace('0', '')} #{tip.tiposDeAnimalesPK.razareplace('0', '')}" itemValue="#{tip}"></f:selectItems>
+                        <f:selectItems value="#{animalesManagedBean.listaTiposAnimales}" var="tip" itemLabel="#{tip.tiposDeAnimalesPK.nombre.replace('0', '')} #{tip.tiposDeAnimalesPK.raza.replace('0', '')}" itemValue="#{tip}"></f:selectItems>
                     </p:selectOneMenu>
                     <p:message for="inputTipodeAnimal" ></p:message>
 
