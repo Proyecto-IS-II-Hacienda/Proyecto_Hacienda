@@ -28,7 +28,7 @@
 
 
                             <p:outputLabel value="Cantidad:" for="inputCantidad"></p:outputLabel>
-                            <p:spinner id="inputCantidad" value="#{inventarioManagedBean.inventarioInsumos.cantidad}" required="true" requiredMessage="Campo obligadotorio." min="0"></p:spinner>
+                            <p:spinner id="inputCantidad" value="#{inventarioManagedBean.inventarioInsumos.cantidad}" required="true" requiredMessage="Campo obligadotorio." min="1"></p:spinner>
                             <p:message for="inputCantidad" ></p:message>
 
                         </h:panelGrid>
@@ -50,7 +50,7 @@
 
 
                             <p:outputLabel value="Cantidad:" for="inputCantidad2"></p:outputLabel>
-                            <p:spinner id="inputCantidad2" value="#{inventarioManagedBean.inventarioProductos.cantidad}" required="true" requiredMessage="Campo obligadotorio." min="0"></p:spinner>
+                            <p:spinner id="inputCantidad2" value="#{inventarioManagedBean.inventarioProductos.cantidad}" required="true" requiredMessage="Campo obligadotorio." min="1"></p:spinner>
                             <p:message for="inputCantidad2" ></p:message>
 
                         </h:panelGrid>

@@ -83,6 +83,7 @@ public class inventarioManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error: ", "No hemos podido guardar la entrada."));
         } finally {
             inventarioInsumos = null;
+            init();
             flag = false;
 
         }
@@ -91,7 +92,7 @@ public class inventarioManagedBean implements Serializable {
     public void registrarProducto() {
         try {
             if (flag) {
-                inventarioProductos.getInventarioProductosPK().setIdinventarioproductos(inventarioProductos.getInventarioProductosPK().getIdproducto().substring(0, 5) + " inv");
+                inventarioProductos.getInventarioProductosPK().setIdinventarioproductos(inventarioProductos.getInventarioProductosPK().getIdproducto().substring(0, 6) + " inv");
                 inventarioProductosFacadeLocal.create(inventarioProductos);
             } else {
                 inventarioProductosFacadeLocal.edit(inventarioProductos);
@@ -101,6 +102,7 @@ public class inventarioManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error: ", "No hemos podido guardar la entrada."));
         } finally {
             inventarioProductos = null;
+            init();
             flag = false;
 
         }
@@ -109,6 +111,7 @@ public class inventarioManagedBean implements Serializable {
     public void vaciar() {
         inventarioInsumos = null;
         inventarioProductos = null;
+        init();
         flag = false;
     }
 
@@ -128,16 +131,20 @@ public class inventarioManagedBean implements Serializable {
         } else if (in instanceof InventarioProductos) {
             this.inventarioProductos = (InventarioProductos) in;
         }
+        
         flag = false;
     }
 
     public void eliminar(Object in) {
         if (in instanceof InventarioInsumos) {
             inventarioInsumosFacadeLocal.remove(new InventarioInsumos(((InventarioInsumos) in).getInventarioInsumosPK()));
+            inventarioInsumos = null;
         } else if (in instanceof InventarioProductos) {
-            inventarioProductosFacadeLocal.remove(new InventarioProductos(((InventarioProductos) in).getInventarioProductosPK()));
+            inventarioProductosFacadeLocal.remove(new InventarioProductos(((InventarioProductos) in).getInventarioProductosPK().getIdinventarioproductos(),((InventarioProductos) in).getProductos().getIdproducto()));
+               inventarioProductos = null;
         }
-        init();
+        init(); 
+        flag = false;
     }
 
     public InventarioInsumos getInventarioInsumos() {
