@@ -19,31 +19,31 @@
                     <p:panel header="Listado de productos" rendered="#{productosManagedBean.productos==null}">
                         <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{productosManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
                         <p:dataTable id="dtProductos" value="#{productosManagedBean.productosList}" var="prod" paginator="true" rows="10">
-                            <p:column headerText="ID" style="width: auto;" sortBy="#{productosManagedBean.productos.idproducto}" filterBy="#{productosManagedBean.productos.idproducto}">
+                            <p:column headerText="ID" style="width: auto;" sortBy="#{prod.idproducto}" filterBy="#{prod.idproducto}">
                                 <h:outputLabel value="#{prod.idproducto.replace('0','')}"></h:outputLabel>
                             </p:column>
-                            <p:column headerText="Nombre del animal" style="width: auto;" sortBy="#{productosManagedBean.productos.nombreanimal}" filterBy="#{productosManagedBean.productos.nombreanimal}">
+                            <p:column headerText="Nombre del animal" style="width: auto;" sortBy="#{prod.nombreanimal}" filterBy="#{prod.nombreanimal}" filterMatchMode="contains">
                                 <h:outputLabel value="#{prod.nombreanimal}"></h:outputLabel>
                             </p:column>
-                            <p:column headerText="Fecha de Elaboración" style="width: auto;" sortBy="#{productosManagedBean.productos.fechaelaboracion}" filterBy="#{productosManagedBean.productos.fechaelaboracion}">
+                            <p:column headerText="Fecha de Elaboración" style="width: auto;" sortBy="#{prod.fechaelaboracion}" filterBy="#{prod.fechaelaboracion}" filterMatchMode="contains">
                                 <h:outputLabel value="#{prod.fechaelaboracion}">
                                     <f:convertDateTime pattern="dd/MM/YYYY"></f:convertDateTime>
                                 </h:outputLabel>
                             </p:column> 
-                            <p:column headerText="Fecha de Caducidad" style="width: auto;" sortBy="#{productosManagedBean.productos.fechacaducidad}" filterBy="#{productosManagedBean.productos.fechacaducidad}">
+                            <p:column headerText="Fecha de Caducidad" style="width: auto;" sortBy="#{prod.fechacaducidad}" filterBy="#{prod.fechacaducidad}" filterMatchMode="contains">
                                 <h:outputLabel value="#{prod.fechacaducidad}">
                                     <f:convertDateTime pattern="dd/MM/YYYY"></f:convertDateTime>
                                 </h:outputLabel>
                             </p:column>
-                            <p:column headerText="Peso" style="width: auto;" sortBy="#{productosManagedBean.productos.peso}" filterBy="#{productosManagedBean.productos.peso}">
+                            <p:column headerText="Peso" style="width: auto;" sortBy="#{prod.peso}" filterBy="#{prod.peso}" filterMatchMode="contains">
                                  <h:outputLabel value="#{prod.peso}">
                                 </h:outputLabel>
                             </p:column>
-                            <p:column headerText="Precio" style="width: auto;" sortBy="#{productosManagedBean.productos.precio}" filterBy="#{productosManagedBean.productos.precio}">
+                            <p:column headerText="Precio" style="width: auto;" sortBy="#{prod.precio}" filterBy="#{prod.precio}" filterMatchMode="contains">
                                 <h:outputLabel value="#{prod.precio}">
                                 </h:outputLabel>
                             </p:column>
-                            <p:column headerText="Descripcion" style="width: auto;" sortBy="#{productosManagedBean.productos.descripcion}" filterBy="#{productosManagedBean.productos.descripcion}">
+                            <p:column headerText="Descripcion" style="width: auto;" sortBy="#{prod.descripcion}" filterBy="#{prod.descripcion}" filterMatchMode="contains">
                                  <h:outputLabel value="#{prod.descripcion}">
                                 </h:outputLabel>
                             </p:column>
@@ -54,7 +54,7 @@
                             </p:column>
                             <p:column headerText="Eliminar">
                                 <p:commandButton icon="ui-icon-trash" action="#{productosManagedBean.eliminar(prod)}" update="dtProductos">
-                                    <p:confirm header="Confirmacion" message="Confirma que desea eliminar el producto seleccionado ?"></p:confirm>
+                                    <p:confirm header="Confirmacion" message="Confirma que desea eliminar el producto #{prod.idproducto.replace('0', '')} ?"></p:confirm>
                                 </p:commandButton>
                             </p:column>
 

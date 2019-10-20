@@ -17,17 +17,17 @@
                      <p:panel header="Listado de áreas" rendered="#{areasManagedBean.area==null}">
                          <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{areasManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
                         <p:dataTable id="dtAreas" value="#{areasManagedBean.areasList}" var="are" paginator="true" rows="10">
-                            <p:column headerText="ID" style="width: auto;" sortBy="#{areasManagedBean.area.idarea}" filterBy="#{areasManagedBean.area.idarea}">
+                            <p:column headerText="ID" style="width: auto;" sortBy="#{are.idarea}" filterBy="#{are.idarea}" filterMatchMode="contains">
                                 <h:outputLabel value="#{are.idarea.replace('0', '')}"></h:outputLabel>
                             </p:column>
-                            <p:column headerText="Dimension" style="width: auto;" sortBy="#{areasManagedBean.area.dimension}" filterBy="#{areasManagedBean.area.dimension}">
+                            <p:column headerText="Dimension" style="width: auto;" sortBy="#{are.dimension}" filterBy="#{are.dimension}" filterMatchMode="contains">
                                 <h:outputLabel value="#{are.dimension}"></h:outputLabel>
                             </p:column>
-                            <p:column headerText="Cercado" style="width: auto;" sortBy="#{areasManagedBean.area.cercado}" filterBy="#{areasManagedBean.area.cercado}">
+                            <p:column headerText="Cercado" style="width: auto;" sortBy="#{are.cercado}" filterBy="#{are.cercado}" filterMatchMode="contains">
                                 <h:outputLabel value="#{are.cercado}">
                                 </h:outputLabel>
                             </p:column> 
-                            <p:column headerText="Tiempo de uso" style="width: auto;" sortBy="#{areasManagedBean.area.tiempodeuso}" filterBy="#{areasManagedBean.area.tiempodeuso}">
+                            <p:column headerText="Tiempo de uso" style="width: auto;" sortBy="#{are.tiempodeuso}" filterBy="#{are.tiempodeuso}" filterMatchMode="contains">
                                 <h:outputLabel value="#{are.tiempodeuso}">
                                 </h:outputLabel>
                             </p:column> 
@@ -36,7 +36,7 @@
                             </p:column>
                              <p:column headerText="Eliminar">
                                  <p:commandButton icon="ui-icon-trash" action="#{areasManagedBean.eliminar(are)}" update="dtAreas">
-                                     <p:confirm header="Confirmacion" message="Confirma que desea eliminar el área seleccionada ?"></p:confirm>
+                                     <p:confirm header="Confirmacion" message="Confirma que desea eliminar el área #{are.idarea.replace('0', '')} ?"></p:confirm>
                                  </p:commandButton>
                              </p:column>
                         </p:dataTable>

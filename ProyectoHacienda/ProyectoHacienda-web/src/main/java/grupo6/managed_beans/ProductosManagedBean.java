@@ -100,6 +100,13 @@ public class ProductosManagedBean implements Serializable, Crud<Productos> {
     @Override
     public void eliminar(Productos clase) {
         try{
+            for (int i = 0; i < clase.getIdproducto().length(); i++) {
+                    if (clase.getIdproducto().length() == 10) {
+                        break;
+                    } else {
+                        clase.setIdproducto(clase.getIdproducto()+"0");
+                    } 
+                }
             productosFacadeLocal.remove(clase);
             init();
             notificarExito("El producto ha sido eliminado exitosamente");
