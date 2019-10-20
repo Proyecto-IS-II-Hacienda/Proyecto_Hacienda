@@ -13,19 +13,21 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
+
 
 /**
  *
  * @author Albert
  */
 @Named(value = "areasManagedBean")
-@RequestScoped
+@ViewScoped
 public class AreasManagedBean implements Serializable, Crud <Areas>{
     private List<Areas> areasList;
     @EJB
     private AreasFacadeLocal areasFacadeLocal;
     private Areas area;
+    private boolean esNuevo;
 
     public List<Areas> getAreasList() {
         return areasList;
@@ -43,7 +45,6 @@ public class AreasManagedBean implements Serializable, Crud <Areas>{
         this.area = area;
     }
     
-
     /**
      * Creates a new instance of AreasManagedBean
      */
@@ -53,51 +54,71 @@ public class AreasManagedBean implements Serializable, Crud <Areas>{
     @PostConstruct
     @Override
     public void init(){
+       areasList=null;
        areasList=areasFacadeLocal.findAll();
+       area=null;
+       esNuevo=false;
     }
     
     @Override
     public void nuevo(){
         area=new Areas();
+        esNuevo = true;
     }
 
      @Override
-    public void grabar() {
-        try{
-            if (area.getIdarea() == null) {
+    public void grabar() {   
+        try {
+            if (esNuevo) {
+                area.setIdarea(area.getIdarea().toUpperCase());
+                for (int i = 0; i < area.getIdarea().length(); i++) {
+                    if (area.getIdarea().length() == 10) {
+                        break;
+                    } else {
+                        area.setIdarea(area.getIdarea()+"0");
+                    } 
+                }
                 areasFacadeLocal.create(area);
             } else {
                 areasFacadeLocal.edit(area);
             }
             init();
-            area=null;
-            notificarExito("La factura ha sido guardada exitosamente");
-
-        }catch(Exception e){
-            notificarError("Ocurrio un error al grabar la factura");
+            area = null;
+            notificarExito("El área ha sido guardada exitosamente");
+        } catch (Exception e) {
+            notificarError("Ocurrio un error al grabar el área");
+        } finally {
+            area = null;
+            esNuevo = false;
+            init();
         }
-        
     }
+            
+
+       
+        
 
     @Override
     public void cancelar() {
         area=null;
     }
-
+    
+    
     @Override
     public void eliminar(Areas clase) {
         try{
             areasFacadeLocal.remove(clase);
             init();
-            notificarExito("La factura ha sido eliminada exitosamente");
+            notificarExito("El area ha sido eliminada exitosamente");
         }catch(Exception e){
-            notificarError("Ocurrio un error al grabar la factura");
+            notificarError("Ocurrio un error al eliminar el area");
 
         }
     }
 
     @Override
     public void seleccionar(Areas clase) {
+        esNuevo =false;
         area=clase;
     }
 }
