@@ -20,7 +20,7 @@
                 <h:panelGrid columns="3">
 
                     <p:outputLabel value="Código:" for="inputCodigo"></p:outputLabel>
-                    <p:inputMask id ="inputCodigo" value="#{animalesManagedBean.animal.codanimal}" required="true" requiredMessage="Campo obligadotorio." mask=".........."></p:inputMask>
+                    <p:inputText id ="inputCodigo" value="#{animalesManagedBean.animal.codanimal}" required="true" requiredMessage="Campo obligadotorio."  ></p:inputText>
                     <p:message for="inputCodigo" ></p:message>
 
                     <p:outputLabel value="Tipo de Animal:" for="inputTipodeAnimal"></p:outputLabel>
@@ -60,7 +60,7 @@
             <p:dataTable id="dtAnimal" value="#{animalesManagedBean.listaAnimales}" var="an" paginator="true" rows="10">
 
                 <p:column headerText="Código" style="width: auto;" sortBy="#{an.codanimal}" filterBy="#{an.codanimal}">
-                    <h:outputLabel value="#{an.codanimal}"></h:outputLabel>
+                    <h:outputLabel value="#{an.codanimal.replace('0', '')}"></h:outputLabel>
                     </p:column>
                 
                 <p:column headerText="Tipos de Animales" >
@@ -88,13 +88,14 @@
                     <p:column headerText="Editar" >
                         <center>
                             <p:commandButton icon="ui-icon-pencil" action="#{animalesManagedBean.seleccionar(an)}" update="form1:panelCentral"></p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
+                            
                                 </center>
                     </p:column>
                 
                     <p:column headerText="Eliminar">
                         <center>
                             <p:commandButton icon="ui-icon-trash" action="#{animalesManagedBean.eliminar(an)}" update="form1:panelCentral">
-                                <p:confirm header="Aviso" message="¿Esta seguro de que desea eliminar al animal #{an.codanimal}?"></p:confirm>
+                                <p:confirm header="Aviso" message="¿Esta seguro de que desea eliminar al animal #{an.codanimal.replace('0', ' ')}?"></p:confirm>
                             </p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
                         </center>
                     </p:column>

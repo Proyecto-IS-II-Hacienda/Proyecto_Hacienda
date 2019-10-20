@@ -48,13 +48,14 @@ public class TiposDeAnimalesManagedBean implements Serializable {
     public void grabar() {
         try {
             tipoAnimal.setTiposDeAnimalesPK(new TiposDeAnimalesPK(tipoAnimal.getTiposDeAnimalesPK().getRaza().toUpperCase(),tipoAnimal.getTiposDeAnimalesPK().getNombre().toUpperCase()));
+            
             for (int i = 0; i < tipoAnimal.getTiposDeAnimalesPK().getNombre().length() ; i++) {
                 if(tipoAnimal.getTiposDeAnimalesPK().getNombre().length()==10) break;
-                else tipoAnimal.getTiposDeAnimalesPK().setNombre("0"+tipoAnimal.getTiposDeAnimalesPK().getNombre()); 
+                else tipoAnimal.getTiposDeAnimalesPK().setNombre(tipoAnimal.getTiposDeAnimalesPK().getNombre()+"0"); 
             }
              for (int i = 0; i < tipoAnimal.getTiposDeAnimalesPK().getRaza().length() ; i++) {
                 if(tipoAnimal.getTiposDeAnimalesPK().getRaza().length()==10) break;
-                else tipoAnimal.getTiposDeAnimalesPK().setRaza("0"+tipoAnimal.getTiposDeAnimalesPK().getRaza()); 
+                else tipoAnimal.getTiposDeAnimalesPK().setRaza(tipoAnimal.getTiposDeAnimalesPK().getRaza()+"0"); 
             }
     
             TAFacadeLocal.create(tipoAnimal);

@@ -58,6 +58,10 @@ public class AnimalesManagedBean implements Serializable {
     public void grabar() {
         try {
             if (flag) {
+                for (int i = 0; i < animal.getCodanimal().length(); i++) {
+                if(animal.getCodanimal().length()==10) break;
+                else animal.setCodanimal(animal.getCodanimal()+"0"); 
+            }
                 AFacadeLocal.create(animal);
             } else {
                 AFacadeLocal.edit(animal);
@@ -116,10 +120,5 @@ public class AnimalesManagedBean implements Serializable {
     public void eliminar(Animales animal) {
         AFacadeLocal.remove(animal);
         init();
-    }
-
-
-    
-    
-    
+    } 
 }
