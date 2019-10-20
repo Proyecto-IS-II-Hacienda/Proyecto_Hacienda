@@ -16,18 +16,18 @@
                  <h:panelGrid id="panelCentral">
                      <p:panel header="Listado de áreas" rendered="#{areasManagedBean.area==null}">
                          <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{areasManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
-                        <p:dataTable id="dtAreas" value="#{areasManagedBean.areasList}" var="are">
-                            <p:column headerText="ID">
-                                <h:outputLabel value="#{are.idarea}"></h:outputLabel>
+                        <p:dataTable id="dtAreas" value="#{areasManagedBean.areasList}" var="are" paginator="true" rows="10">
+                            <p:column headerText="ID" style="width: auto;" sortBy="#{areasManagedBean.area.idarea}" filterBy="#{areasManagedBean.area.idarea}">
+                                <h:outputLabel value="#{are.idarea.replace('0', '')}"></h:outputLabel>
                             </p:column>
-                            <p:column headerText="Dimension">
+                            <p:column headerText="Dimension" style="width: auto;" sortBy="#{areasManagedBean.area.dimension}" filterBy="#{areasManagedBean.area.dimension}">
                                 <h:outputLabel value="#{are.dimension}"></h:outputLabel>
                             </p:column>
-                            <p:column headerText="Cercado">
+                            <p:column headerText="Cercado" style="width: auto;" sortBy="#{areasManagedBean.area.cercado}" filterBy="#{areasManagedBean.area.cercado}">
                                 <h:outputLabel value="#{are.cercado}">
                                 </h:outputLabel>
                             </p:column> 
-                            <p:column headerText="Tiempo de uso">
+                            <p:column headerText="Tiempo de uso" style="width: auto;" sortBy="#{areasManagedBean.area.tiempodeuso}" filterBy="#{areasManagedBean.area.tiempodeuso}">
                                 <h:outputLabel value="#{are.tiempodeuso}">
                                 </h:outputLabel>
                             </p:column> 
@@ -39,23 +39,23 @@
                                      <p:confirm header="Confirmacion" message="Confirma que desea eliminar el área seleccionada ?"></p:confirm>
                                  </p:commandButton>
                              </p:column>
-
                         </p:dataTable>
                     </p:panel>
 
+                     
                     <p:panel header="#{areasManagedBean.area.idarea==null? 'Ingreso': 'Edicion'} de área" rendered="#{areasManagedBean.area!=null}">
                         <h:panelGrid columns="3">
                             <p:outputLabel for="txtID" value="ID: "></p:outputLabel>
-                            <p:inputText id="txtID" value="#{areasManagedBean.area.idarea}" required="true"></p:inputText>
+                            <p:inputText id="txtID" value="#{areasManagedBean.area.idarea}" required="true" requiredMessage="Campo obligatorio"></p:inputText>
                             <p:message for="txtID"></p:message>
                             <p:outputLabel for="txtDimension" value="Dimension: "></p:outputLabel>
-                            <p:inputText id="txtDimension" value="#{areasManagedBean.area.dimension}" required="true"></p:inputText>
+                            <p:inputText id="txtDimension" value="#{areasManagedBean.area.dimension}" required="true" requiredMessage="Campo obligatorio"></p:inputText>
                             <p:message for="txtDimension"></p:message>
                             <p:outputLabel for="numCercado" value="Cercado: "></p:outputLabel>
-                            <p:inputNumber id="numCercado" value="#{areasManagedBean.area.cercado}" required="true" ></p:inputNumber>
+                            <p:inputNumber id="numCercado" value="#{areasManagedBean.area.cercado}" required="true" requiredMessage="Campo obligatorio"></p:inputNumber>
                             <p:message for="numCercado"></p:message>
                             <p:outputLabel for="numUso" value="Tiempo de Uso: "></p:outputLabel>
-                            <p:inputNumber id="numUso" value="#{areasManagedBean.area.tiempodeuso}" required="true"></p:inputNumber>
+                            <p:inputNumber id="numUso" value="#{areasManagedBean.area.tiempodeuso}" required="true" requiredMessage="Campo obligatorio"></p:inputNumber>
                             <p:message for="numUso"></p:message>
                         </h:panelGrid>
                         <h:panelGrid columns="2">
