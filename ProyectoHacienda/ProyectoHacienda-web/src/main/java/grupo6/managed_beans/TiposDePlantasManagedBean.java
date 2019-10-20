@@ -10,35 +10,35 @@ import grupo6.utilitarios.Crud;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
-/**
- *
- * @author vjose
- */
 @Named(value = "tiposDePlantasManagedBean")
 @ViewScoped
 public class TiposDePlantasManagedBean implements Serializable, Crud<TiposDePlantas> {
+
     private TiposDePlantas tiposDePlantas;
     private List<TiposDePlantas> listaTiposDePlantas;
     @EJB
     private TiposDePlantasFacadeLocal tiposDePlantasFacadeLocal;
-    
+    private boolean esNuevo;
+
     public TiposDePlantasManagedBean() {
     }
 
     @Override
     public void nuevo() {
+        esNuevo=true;
         tiposDePlantas = new TiposDePlantas();
     }
 
     @Override
     public void seleccionar(TiposDePlantas clase) {
+        esNuevo=false;
         this.tiposDePlantas = clase;
     }
 
     @Override
     public void grabar() {
         try {
-            if (tiposDePlantas.getNombredeplanta()== null) {
+            if (esNuevo) {
                 tiposDePlantasFacadeLocal.create(tiposDePlantas);
             } else {
                 tiposDePlantasFacadeLocal.edit(tiposDePlantas);

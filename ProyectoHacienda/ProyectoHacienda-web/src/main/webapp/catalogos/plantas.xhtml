@@ -49,10 +49,15 @@
                         </p:dataTable>
                     </p:panel>
 
-                    <p:panel header="#{plantasManagedBean.plantas.idplanta==null ? 'Ingreso ' : 'Modificación'} de Producto" rendered="#{plantasManagedBean.plantas!=null}">
+                    <p:panel header="#{plantasManagedBean.nuevaPlanta ? 'Ingreso ' : 'Modificación'} de Producto" rendered="#{plantasManagedBean.plantas!=null}">
                         <h:panelGrid columns="3">
                             <p:outputLabel for="txtID" value="ID de planta: "></p:outputLabel>
-                            <p:inputText id="txtID" value="#{plantasManagedBean.plantas.idplanta}" required="true" requiredMessage="Campo Obligatorio"></p:inputText>
+                            <h:panelGrid columns="2">
+                                <p:inputText id="txtID" value="#{plantasManagedBean.plantas.idplanta}" required="true" requiredMessage="Campo Obligatorio">
+                                    <p:ajax event="blur" listener="#{plantasManagedBean.verificar()}" />
+                                </p:inputText>
+                                <p:commandButton value="Generar" action="#{plantasManagedBean.generarID()}" update="panelCentral" process="@this"></p:commandButton>
+                            </h:panelGrid>
                             <p:message for="txtID"></p:message>
 
                             <p:outputLabel for="comTipos" value="Tipo de Planta: "></p:outputLabel>

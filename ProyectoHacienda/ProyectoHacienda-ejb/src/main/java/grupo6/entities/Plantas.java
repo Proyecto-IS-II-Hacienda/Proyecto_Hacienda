@@ -67,6 +67,7 @@ public class Plantas implements Serializable {
     private List<AsignarArea2> asignarArea2List;
 
     public Plantas() {
+        fechaplantacion = new Date();
     }
 
     public Plantas(String idplanta) {
