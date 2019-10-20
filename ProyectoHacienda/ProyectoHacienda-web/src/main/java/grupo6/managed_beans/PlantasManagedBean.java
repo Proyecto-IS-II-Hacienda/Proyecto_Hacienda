@@ -25,7 +25,7 @@ public class PlantasManagedBean implements Serializable, Crud<Plantas> {
     private List<TiposDePlantas> listaTiposDePlantas;
     private String nombreGenerado;
     private boolean generado;
-    private boolean nuevaPlanta;
+    private boolean esNuevo;
     @EJB
     private PlantasFacadeLocal plantasFacadeLocal;
     @EJB
@@ -36,19 +36,21 @@ public class PlantasManagedBean implements Serializable, Crud<Plantas> {
 
     @Override
     public void nuevo() {
+        esNuevo = true;
         plantas = new Plantas();
-        nuevaPlanta = true;
     }
 
     @Override
     public void seleccionar(Plantas clase) {
+        esNuevo = false;
         this.plantas = clase;
     }
 
     @Override
     public void grabar() {
         try {
-            if (plantas.getIdplanta() == null) {
+            plantas.setIdplanta(plantas.getIdplanta().toUpperCase());
+            if (esNuevo) {
                 plantasFacadeLocal.create(plantas);
             } else {
                 plantasFacadeLocal.edit(plantas);
@@ -65,6 +67,7 @@ public class PlantasManagedBean implements Serializable, Crud<Plantas> {
     public void eliminar(Plantas clase) {
         plantasFacadeLocal.remove(clase);
         init();
+        notificarExito("Se han eliminado los datos con éxito");
     }
 
     @Override
@@ -77,7 +80,6 @@ public class PlantasManagedBean implements Serializable, Crud<Plantas> {
     public void init() {
         listaPlantas = plantasFacadeLocal.findAll();
         listaTiposDePlantas = tiposDePlantasFacadeLocal.findAll();
-        nuevaPlanta = false;
     }
 
     public Plantas getPlantas() {
@@ -104,17 +106,17 @@ public class PlantasManagedBean implements Serializable, Crud<Plantas> {
         this.listaTiposDePlantas = listaTiposDePlantas;
     }
 
-    public boolean isNuevaPlanta() {
-        return nuevaPlanta;
+    public boolean isEsNuevo() {
+        return esNuevo;
     }
 
-    public void setNuevaPlanta(boolean nuevaPlanta) {
-        this.nuevaPlanta = nuevaPlanta;
+    public void setEsNuevo(boolean esNuevo) {
+        this.esNuevo = esNuevo;
     }
 
     public void verificar() {
 
-        if (plantasFacadeLocal.find(plantas.getIdplanta()) == null) {
+        if (plantasFacadeLocal.find(plantas.getIdplanta().toUpperCase()) == null) {
             notificarExito("El nombre es libre de usarse");
         } else {
             notificarError("El nombre ya está siendo usado");

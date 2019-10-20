@@ -25,19 +25,20 @@ public class TiposDePlantasManagedBean implements Serializable, Crud<TiposDePlan
 
     @Override
     public void nuevo() {
-        esNuevo=true;
+        esNuevo = true;
         tiposDePlantas = new TiposDePlantas();
     }
 
     @Override
     public void seleccionar(TiposDePlantas clase) {
-        esNuevo=false;
+        esNuevo = false;
         this.tiposDePlantas = clase;
     }
 
     @Override
     public void grabar() {
         try {
+            tiposDePlantas.setNombredeplanta(tiposDePlantas.getNombredeplanta().toUpperCase());
             if (esNuevo) {
                 tiposDePlantasFacadeLocal.create(tiposDePlantas);
             } else {
@@ -55,6 +56,7 @@ public class TiposDePlantasManagedBean implements Serializable, Crud<TiposDePlan
     public void eliminar(TiposDePlantas clase) {
         tiposDePlantasFacadeLocal.remove(clase);
         init();
+        notificarExito("Se han eliminado los datos con éxito");
     }
 
     @Override
@@ -82,6 +84,14 @@ public class TiposDePlantasManagedBean implements Serializable, Crud<TiposDePlan
 
     public void setListaTiposDePlantas(List<TiposDePlantas> listaTiposDePlantas) {
         this.listaTiposDePlantas = listaTiposDePlantas;
+    }
+
+    public boolean isEsNuevo() {
+        return esNuevo;
+    }
+
+    public void setEsNuevo(boolean esNuevo) {
+        this.esNuevo = esNuevo;
     }
 
 }

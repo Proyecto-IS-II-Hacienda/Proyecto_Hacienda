@@ -42,7 +42,7 @@
                         </p:dataTable>
                     </p:panel>
 
-                    <p:panel header="#{tiposDePlantasManagedBean.tiposDePlantas.nombredeplanta==null ? 'Ingreso ' : 'Modificación'} de Producto" rendered="#{tiposDePlantasManagedBean.tiposDePlantas!=null}">
+                    <p:panel header="#{tiposDePlantasManagedBean.esNuevo ? 'Ingreso ' : 'Modificación'} de Producto" rendered="#{tiposDePlantasManagedBean.tiposDePlantas!=null}">
                         <h:panelGrid columns="3">
                             <p:outputLabel for="txtNombre" value="Nombre de planta: "></p:outputLabel>
                             <p:inputText id="txtNombre" value="#{tiposDePlantasManagedBean.tiposDePlantas.nombredeplanta}" required="true" requiredMessage="Campo Obligatorio"></p:inputText>

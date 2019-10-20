@@ -49,7 +49,7 @@
                         </p:dataTable>
                     </p:panel>
 
-                    <p:panel header="#{plantasManagedBean.nuevaPlanta ? 'Ingreso ' : 'Modificación'} de Producto" rendered="#{plantasManagedBean.plantas!=null}">
+                    <p:panel header="#{plantasManagedBean.esNuevo ? 'Ingreso ' : 'Modificación'} de Producto" rendered="#{plantasManagedBean.plantas!=null}">
                         <h:panelGrid columns="3">
                             <p:outputLabel for="txtID" value="ID de planta: "></p:outputLabel>
                             <h:panelGrid columns="2">
