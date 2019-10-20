@@ -8,62 +8,62 @@
         <title>Tipos de Animales</title>
     </h:head>
     <h:body>
-                <ui:composition template="../index.xhtml">
+        <ui:composition template="../index.xhtml">
             <ui:define name="content">
                 <p:messages showDetail="true" showSummary="true">
                     <p:autoUpdate></p:autoUpdate>
                 </p:messages>
 
-                
 
 
 
 
-    <h:panelGrid id="panelCentral">
-        <p:panel  header="#{tiposDeAnimalesManagedBean.tipoAnimal == null ?'Ingreso':'Actualización'} de Tipos de Animales" rendered="#{tiposDeAnimalesManagedBean.tipoAnimal != null}">
-                <h:panelGrid columns="3">
 
-                    <p:outputLabel value="Nombre:" for="inputNombre"></p:outputLabel>
-                    <p:inputText id ="inputNombre"  value="#{tiposDeAnimalesManagedBean.tipoAnimal.tiposDeAnimalesPK.nombre}" required="true" requiredMessage="Campo obligadotorio."></p:inputText>
-                    <p:message for="inputNombre" ></p:message>
+                <h:panelGrid id="panelCentral">
+                    <p:panel  header="#{tiposDeAnimalesManagedBean.tipoAnimal == null ?'Ingreso':'Actualización'} de Tipos de Animales" rendered="#{tiposDeAnimalesManagedBean.tipoAnimal != null}">
+                        <h:panelGrid columns="3">
 
-                    <p:outputLabel value="Raza:" for="inputRaza"></p:outputLabel>
-                    <p:inputText id="inputRaza" value="#{tiposDeAnimalesManagedBean.tipoAnimal.tiposDeAnimalesPK.raza}" required="true" requiredMessage="Campo obligadotorio." ></p:inputText>
-                    <p:message for="inputRaza" ></p:message>
+                            <p:outputLabel value="Nombre:" for="inputNombre"></p:outputLabel>
+                            <p:inputText id ="inputNombre"  value="#{tiposDeAnimalesManagedBean.tipoAnimal.tiposDeAnimalesPK.nombre}" required="true" requiredMessage="Campo obligadotorio."></p:inputText>
+                            <p:message for="inputNombre" ></p:message>
+
+                            <p:outputLabel value="Raza:" for="inputRaza"></p:outputLabel>
+                            <p:inputText id="inputRaza" value="#{tiposDeAnimalesManagedBean.tipoAnimal.tiposDeAnimalesPK.raza}" required="true" requiredMessage="Campo obligadotorio." ></p:inputText>
+                            <p:message for="inputRaza" ></p:message>
 
 
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Grabar" action="#{tiposDeAnimalesManagedBean.grabar()}" update="form1:panelCentral" ></p:commandButton>
+                            <p:commandButton value="Cancelar" action="#{tiposDeAnimalesManagedBean.vaciar()}" update="form1:panelCentral" immediate="true"></p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>         
+                    <p:panel header="Tipos de Animales" rendered="#{tiposDeAnimalesManagedBean.tipoAnimal == null}">
+                        <p:commandButton icon="ui-icon-plus" action="#{tiposDeAnimalesManagedBean.nuevo()}" update="form1:panelCentral"></p:commandButton>
+                        <p:dataTable id="dtTiposAnimal" value="#{tiposDeAnimalesManagedBean.listaTipoAnimal}" var="tip" paginator="true" rows="10">
+
+                            <p:column headerText="Nombre" style="width: auto;" sortBy="#{tip.tiposDeAnimalesPK.nombre}" filterBy="#{tip.tiposDeAnimalesPK.nombre}">
+                                <h:outputLabel value="#{tip.tiposDeAnimalesPK.nombre.replace('0', '')}"></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Raza" style="width: auto;" sortBy="#{tip.tiposDeAnimalesPK.raza}" filterBy="#{tip.tiposDeAnimalesPK.raza}">
+                                <h:outputLabel value="#{tip.tiposDeAnimalesPK.raza.replace('0', '')}"></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Eliminar">
+                                <center>
+                                    <p:commandButton icon="ui-icon-trash" action="#{tiposDeAnimalesManagedBean.eliminar(tip)}" update="form1:panelCentral">
+                                        <p:confirm header="Aviso" message="¿Esta seguro de que desea eliminar #{tip.tiposDeAnimalesPK.nombre.replace('0', ' ')} #{tip.tiposDeAnimalesPK.raza.replace('0', ' ')}?"></p:confirm>
+                                    </p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
+                                </center>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
                 </h:panelGrid>
-                <h:panelGrid columns="2">
-                    <p:commandButton value="Grabar" action="#{tiposDeAnimalesManagedBean.grabar()}" update="form1:panelCentral" ></p:commandButton>
-                    <p:commandButton value="Cancelar" action="#{tiposDeAnimalesManagedBean.vaciar()}" update="form1:panelCentral" immediate="true"></p:commandButton>
-                </h:panelGrid>
-            </p:panel>         
-            <p:panel header="Tipos de Animales" rendered="#{tiposDeAnimalesManagedBean.tipoAnimal == null}">
-                <p:commandButton icon="ui-icon-plus" action="#{tiposDeAnimalesManagedBean.nuevo()}" update="form1:panelCentral"></p:commandButton>
-                <p:dataTable id="dtTiposAnimal" value="#{tiposDeAnimalesManagedBean.listaTipoAnimal}" var="tip" paginator="true" rows="10">
 
-                    <p:column headerText="Nombre" style="width: auto;" sortBy="#{tip.tiposDeAnimalesPK.nombre}" filterBy="#{tip.tiposDeAnimalesPK.nombre}">
-                        <h:outputLabel value="#{tip.tiposDeAnimalesPK.nombre.replace('0', '')}"></h:outputLabel>
-                    </p:column>
-                    <p:column headerText="Raza" style="width: auto;" sortBy="#{tip.tiposDeAnimalesPK.raza}" filterBy="#{tip.tiposDeAnimalesPK.raza}">
-                        <h:outputLabel value="#{tip.tiposDeAnimalesPK.raza.replace('0', '')}"></h:outputLabel>
-                    </p:column>
-                    <p:column headerText="Eliminar">
-                        <center>
-                            <p:commandButton icon="ui-icon-trash" action="#{tiposDeAnimalesManagedBean.eliminar(tip)}" update="form1:panelCentral">
-                                <p:confirm header="Aviso" message="¿Esta seguro de que desea eliminar #{tip.tiposDeAnimalesPK.nombre.replace('0', ' ')} #{tip.tiposDeAnimalesPK.raza.replace('0', ' ')}?"></p:confirm>
-                            </p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
-                        </center>
-                    </p:column>
-                </p:dataTable>
-            </p:panel>
-    </h:panelGrid>
-                
             </ui:define>    
 
 
         </ui:composition>
-        
+
     </h:body>
 </html>
 
