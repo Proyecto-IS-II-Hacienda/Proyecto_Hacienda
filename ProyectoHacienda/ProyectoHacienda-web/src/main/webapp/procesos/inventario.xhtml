@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Inventario de la Hacienda</title>
     </h:head>
@@ -13,10 +14,123 @@
                 <p:messages showDetail="true" showSummary="true">
                     <p:autoUpdate></p:autoUpdate>
                 </p:messages>
-               
-                
-                
-                
+
+                <h:panelGrid id="panelCentral">
+                    
+                    <p:panel  header="#{inventarioManagedBean.flag ?'Ingreso':'Actualización'} de Entrada de Insumos" rendered="#{inventarioManagedBean.inventarioInsumos != null}">
+                        <h:panelGrid columns="3">
+
+                            <p:outputLabel value="Insumo:" for="inputInsumo"></p:outputLabel>
+                            <p:selectOneMenu id = "inputInsumo" value="#{inventarioManagedBean.inventarioInsumos.inventarioInsumosPK.codinsumo}" required="true" requiredMessage="Campo obligadotorio.">
+                                <f:selectItems value="#{inventarioManagedBean.listaInsumos}" var="ins" itemLabel="#{ins.codinsumo}" itemValue="#{ins.codinsumo}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:message for="inputInsumo" ></p:message>
+
+
+                            <p:outputLabel value="Cantidad:" for="inputCantidad"></p:outputLabel>
+                            <p:spinner id="inputCantidad" value="#{inventarioManagedBean.inventarioInsumos.cantidad}" required="true" requiredMessage="Campo obligadotorio." min="1"></p:spinner>
+                            <p:message for="inputCantidad" ></p:message>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Grabar" action="#{inventarioManagedBean.registrarInsumo()}" update="form1:panelCentral" ></p:commandButton>
+                            <p:commandButton value="Cancelar" action="#{inventarioManagedBean.vaciar()}" update="form1:panelCentral" immediate="true"></p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>     
+
+
+                    <p:panel  header="#{inventarioManagedBean.flag ?'Ingreso':'Actualización'} de Entrada de Producto" rendered="#{inventarioManagedBean.inventarioProductos != null}">
+                        <h:panelGrid columns="3">
+
+                            <p:outputLabel value="Producto:" for="inputProducto"></p:outputLabel>
+                            <p:selectOneMenu id = "inputProducto" value="#{inventarioManagedBean.inventarioProductos.inventarioProductosPK.idproducto}" required="true" requiredMessage="Campo obligadotorio.">
+                                <f:selectItems value="#{inventarioManagedBean.listaProductos}" var="prod" itemLabel="#{prod.idproducto}" itemDescription="#{prod.descripcion}" itemValue="#{prod.idproducto}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:message for="inputProducto" ></p:message>
+
+
+                            <p:outputLabel value="Cantidad:" for="inputCantidad2"></p:outputLabel>
+                            <p:spinner id="inputCantidad2" value="#{inventarioManagedBean.inventarioProductos.cantidad}" required="true" requiredMessage="Campo obligadotorio." min="1"></p:spinner>
+                            <p:message for="inputCantidad2" ></p:message>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Grabar" action="#{inventarioManagedBean.registrarProducto()}" update="form1:panelCentral" ></p:commandButton>
+                            <p:commandButton value="Cancelar" action="#{inventarioManagedBean.vaciar()}" update="form1:panelCentral" immediate="true"></p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>     
+
+                    <h:panelGrid columns="2" style="width: 100%" rendered="#{inventarioManagedBean.inventarioInsumos == null and inventarioManagedBean.inventarioProductos == null? true:false}"> 
+
+                        <p:commandButton icon="ui-icon-plus" action="#{inventarioManagedBean.nuevoInsumo()}" update="form1:panelCentral"></p:commandButton>
+                        <p:commandButton icon="ui-icon-plus" action="#{inventarioManagedBean.nuevoProducto()}" update="form1:panelCentral"></p:commandButton>
+                        <p:dataTable id="dtInsumos" value="#{inventarioManagedBean.listaInventarioInsumos}" var="an" paginator="true" rows="10">
+
+                            <p:column headerText="Insumo" style="width: auto;" sortBy="#{an.insumos.codinsumo}" filterBy="#{an.insumos.codinsumo}">
+                                <h:outputLabel value="#{an.insumos.codinsumo}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="Tipo" style="width: auto;" sortBy="#{an.insumos.tipo}" filterBy="#{an.insumos.tipo}">
+                                <h:outputLabel value="#{an.insumos.tipo}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="Cantidad" style="width: auto;" sortBy="#{an.cantidad}" filterBy="#{an.cantidad}">
+                                <h:outputLabel value="#{an.cantidad} unidades"></h:outputLabel>
+                            </p:column>
+
+
+                            <p:column headerText="Editar" >
+                                <center>
+                                    <p:commandButton icon="ui-icon-pencil" action="#{inventarioManagedBean.seleccionar(an)}" update="form1:panelCentral"></p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
+                                </center>
+                            </p:column>
+
+                            <p:column headerText="Eliminar">
+                                <center>
+                                    <p:commandButton icon="ui-icon-trash" action="#{inventarioManagedBean.eliminar(an)}" update="form1:panelCentral">
+                                        <p:confirm header="Aviso" message="¿Esta seguro de que desea eliminar todas las unidades?"></p:confirm>
+                                    </p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
+                                </center>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:dataTable id="dtProductos" value="#{inventarioManagedBean.listaInventarioProductos}" var="an" paginator="true" rows="10">
+
+                            <p:column headerText="Producto" style="width: auto;" sortBy="#{an.productos.idproducto}" filterBy="#{an.productos.idproducto}">
+                                <h:outputLabel value="#{an.productos.idproducto}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="Descipción" style="width: auto;" sortBy="#{an.productos.descripcion}" filterBy="#{an.productos.descripcion}">
+                                <h:outputLabel value="#{an.productos.descripcion}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="Cantidad" style="width: auto;" sortBy="#{an.cantidad}" filterBy="#{an.cantidad}">
+                                <h:outputLabel value="#{an.cantidad} unidades"></h:outputLabel>
+                            </p:column>
+
+
+                            <p:column headerText="Editar" >
+                                <center>
+                                    <p:commandButton icon="ui-icon-pencil" action="#{inventarioManagedBean.seleccionar(an)}" update="form1:panelCentral"></p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
+                                </center>
+                            </p:column>
+
+                            <p:column headerText="Eliminar">
+                                <center>
+                                    <p:commandButton icon="ui-icon-trash" action="#{inventarioManagedBean.eliminar(an)}" update="form1:panelCentral">
+                                        <p:confirm header="Aviso" message="¿Esta seguro de que desea eliminar todas las unidades de #{an.productos.idproducto}?"></p:confirm>
+                                    </p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
+                                </center>
+                            </p:column>
+                        </p:dataTable>
+
+
+
+
+                    </h:panelGrid>
+                </h:panelGrid>
+
+
             </ui:define>
         </ui:composition>
     </h:body>
