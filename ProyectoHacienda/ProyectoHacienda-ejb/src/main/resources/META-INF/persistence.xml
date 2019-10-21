@@ -4,6 +4,7 @@
 
     <jta-data-source>jdbc/proyectoHacienda</jta-data-source>
 
+
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.logging.level" value="FINE"/>
