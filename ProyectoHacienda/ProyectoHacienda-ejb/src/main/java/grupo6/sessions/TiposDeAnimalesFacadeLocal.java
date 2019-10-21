@@ -29,5 +29,7 @@ public interface TiposDeAnimalesFacadeLocal {
     List<TiposDeAnimales> findRange(int[] range);
 
     int count();
+
+    public void eliminar();
     
 }

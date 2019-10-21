@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    
+        <AdmHacienda id="AH">
+            <ingreso>false</ingreso>
+            <modificacion>false</modificacion>
+            <eliminacion>false</eliminacion>
+            <consulta>true</consulta>
+        </AdmHacienda>
+        
+        <AdmCampo id="AC">
+            <ingreso>true</ingreso>
+            <modificacion>true</modificacion>
+            <eliminacion>true</eliminacion>
+            <consulta>true</consulta>
+        </AdmCampo>
+        
+        <AdmSistema id="AS">
+            <ingreso>true</ingreso>
+            <modificacion>true</modificacion>
+            <eliminacion>true</eliminacion>
+            <consulta>true</consulta>
+        </AdmSistema>
+    
+        <usuario id="1">
+            <nombre>José Ernesto</nombre>
+            <rol>Administrador de Hacienda</rol>
+            <permisos>AH</permisos>
+            <username>jose</username>
+            <password>123456</password>
+        </usuario>
+ 
+    
+
+        <usuario id="2">
+            <nombre>Ernesto Rodrigo</nombre>
+            <rol>Administrador de Campo</rol>
+            <permisos>AC</permisos>
+            <username>ernesto</username>
+            <password>654321</password>
+        </usuario>
+        <usuario id="3">
+            <nombre>Daniel Pérez</nombre>
+            <rol>Administrador de Campo</rol>
+            <permisos>AC</permisos>
+            <username>dperez</username>
+            <password>433543</password>
+        </usuario>
+    
+    
+    
+        <usuario id="4">
+            <nombre>Marco Ruíz</nombre>
+            <rol>Administrador de Sistema</rol>
+            <permisos>AS</permisos>
+            <username>marco</username>
+            <password>321423</password>
+        </usuario>      
+
+    
+</root>

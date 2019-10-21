@@ -52,6 +52,7 @@ public class InventarioProductos implements Serializable {
     private Productos productos;
 
     public InventarioProductos() {
+        inventarioProductosPK = new InventarioProductosPK();
     }
 
     public InventarioProductos(InventarioProductosPK inventarioProductosPK) {
