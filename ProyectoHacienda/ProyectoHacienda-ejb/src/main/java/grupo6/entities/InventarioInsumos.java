@@ -50,6 +50,7 @@ public class InventarioInsumos implements Serializable {
     private Insumos insumos;
 
     public InventarioInsumos() {
+        inventarioInsumosPK = new InventarioInsumosPK();
     }
 
     public InventarioInsumos(InventarioInsumosPK inventarioInsumosPK) {
