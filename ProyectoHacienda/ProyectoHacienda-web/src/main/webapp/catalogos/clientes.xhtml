@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Clientes</title>
     </h:head>
@@ -13,7 +14,79 @@
                 <p:messages showDetail="true" showSummary="true">
                     <p:autoUpdate></p:autoUpdate>
                 </p:messages>
+
                
+                    <p:confirmDialog global="true">
+                        <center>
+                            <p:commandButton value="Aceptar" styleClass="ui-confirmdialog-yes"></p:commandButton>
+                            <p:commandButton value="Cancelar" styleClass="ui-confirmdialog-no"></p:commandButton> 
+                        </center>              
+                    </p:confirmDialog>
+                <h:panelGrid id="panelCentral" style="width: 100%">
+                    <p:panel header="#{clienteManagedBean.edicion  ? 'Modificacion' : 'Ingreso'}  de Cliente" rendered="#{clienteManagedBean.clientes != null}">
+
+                        <h:panelGrid columns ="3">
+
+                            <p:outputLabel  for="txtCedula" value="Cédula:"></p:outputLabel>
+                            <p:inputText id ="txtCedula" value="#{clienteManagedBean.clientes.cedula}"> </p:inputText>
+                            <p:message for="txtCedula"></p:message> 
+
+                            <p:outputLabel for="txtNombre" value="Nombre:"> </p:outputLabel>
+                            <p:inputText id ="txtNombre" value="#{clienteManagedBean.clientes.nombre}" required="true" ></p:inputText>
+                            <p:message for="txtNombre"></p:message>
+
+                            <p:outputLabel for="txtApellido" value="Apellido:"></p:outputLabel>
+                            <p:inputText id="txtApellido" value="#{clienteManagedBean.clientes.apellido}" required="true"></p:inputText>
+                            <p:message for="txtApellido"></p:message>                                           
+
+                            <p:outputLabel for="txtTelefono" value="Telefono"> </p:outputLabel>
+                            <p:inputNumber id="txtTelefono" value="#{clienteManagedBean.clientes.telefono}" thousandSeparator="" decimalPlaces="0" leadingZero="keep"></p:inputNumber>
+                            <p:message for="txtTelefono"></p:message>
+
+                        </h:panelGrid>
+
+
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Grabar" action="#{clienteManagedBean.grabar()}" update="panelCentral"></p:commandButton>
+                            <p:commandButton value="Cancelar" action="#{clienteManagedBean.cancelar()}" update="panelCentral" immediate="true"></p:commandButton>                                       
+                        </h:panelGrid>
+
+                    </p:panel>
+                    <p:panel header="Listado de clientes" rendered="#{clienteManagedBean.clientes ==null}">
+                        <p:commandButton value="Nuevo" action="#{clienteManagedBean.nuevo()}" update="panelCentral">  </p:commandButton>
+                        <p:dataTable  id="dtClientes" value="#{clienteManagedBean.clientesList}" var="cli" paginator="true" rows="5">
+
+                            <p:column headerText="CEDULA" width="100" sortBy="#{cli.cedula}" filterBy="#{cli.cedula}">
+                                <h:outputLabel value="#{cli.cedula}"></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="NOMBRE" width="150">
+                                <h:outputLabel value="#{cli.nombre}"></h:outputLabel>
+                            </p:column>                           
+                            <p:column headerText="APELLIDO" width="100" sortBy="#{cli.apellido}" filterBy="#{cli.apellido}">
+                                <h:outputLabel value="#{cli.apellido}"></h:outputLabel>
+                            </p:column>                           
+                            <p:column headerText="TELEFONO" width="100">
+                                <h:outputLabel value="#{cli.telefono}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="EDITAR" style="text-align: center" width="80">
+                                <p:commandButton icon="ui-icon-pencil" action="#{clienteManagedBean.selecionar(cli)}" update=":form1:panelCentral"></p:commandButton>
+                            </p:column>
+                            <p:column headerText="ELIMINAR" width="80">
+                                <p:commandButton icon="ui-icon-trash" action="#{clienteManagedBean.eliminar(cli)}" update="dtClientes">
+                                    <p:confirm header="confirmacion" message="confirma que desea eliminar el cliente seleccionado:#{cli.nombre}"></p:confirm>
+                                </p:commandButton>                           
+                            </p:column>
+                        </p:dataTable>                   
+                    </p:panel>
+                
+
+                </h:panelGrid>
+
+
+
+
+
             </ui:define>
         </ui:composition>
     </h:body>
