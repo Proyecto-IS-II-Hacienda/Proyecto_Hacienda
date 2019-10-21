@@ -13,7 +13,59 @@
                 <p:messages showDetail="true" showSummary="true">
                     <p:autoUpdate></p:autoUpdate>
                 </p:messages>
-               
+                <h:panelGrid columns="1" id="panelCentral" style="width: 100%">
+                    <p:panel header="Listado de Tipos de Plantas" rendered="#{tiposDePlantasManagedBean.tiposDePlantas==null}">
+                        <p:commandButton value="Nuevo" icon="ui-icon-plus" action="#{tiposDePlantasManagedBean.nuevo()}" update="panelCentral"></p:commandButton>
+                        <br/>
+                        <p:dataTable id="dtTiposDePlantas" value="#{tiposDePlantasManagedBean.listaTiposDePlantas}" var="tdpl" paginator="true" rows="5">
+                            <p:column headerText="NOMBRE DE LA PLANTA" style="text-align: center" sortBy="#{tdpl.nombredeplanta}" filterBy="#{tdpl.nombredeplanta}" filterMatchMode="contains">
+                                <h:outputLabel value="#{tdpl.nombredeplanta}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="NÚMERO DE DÍAS DE COSECHA" style="text-align: center" sortBy="#{tdpl.diascosecha}" filterBy="#{tdpl.diascosecha}" filterMatchMode="contains">
+                                <h:outputLabel value="#{tdpl.diascosecha}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="DESCRIPCIÓN" style="text-align: center" sortBy="#{tdpl.descripcion}" filterBy="#{tdpl.descripcion}" filterMatchMode="contains">
+                                <h:outputLabel value="#{tdpl.descripcion}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="EDITAR" style="text-align: center" width="80">
+                                <p:commandButton icon="ui-icon-pencil" action="#{tiposDePlantasManagedBean.seleccionar(tdpl)}" update=":form1:panelCentral"></p:commandButton>
+                            </p:column>
+
+                            <p:column headerText="ELIMINAR" style="text-align: center" width="80">
+                                <p:commandButton icon="ui-icon-trash" action="#{tiposDePlantasManagedBean.eliminar(tdpl)}" update="dtTiposDePlantas">
+                                    <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar el elemento? (#{tdpl.nombredeplanta})"></p:confirm>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:panel header="#{tiposDePlantasManagedBean.esNuevo ? 'Ingreso ' : 'Modificación'} de Producto" rendered="#{tiposDePlantasManagedBean.tiposDePlantas!=null}">
+                        <h:panelGrid columns="3">
+                            <p:outputLabel for="txtNombre" value="Nombre de planta: "></p:outputLabel>
+                            <p:inputText id="txtNombre" value="#{tiposDePlantasManagedBean.tiposDePlantas.nombredeplanta}" required="true" requiredMessage="Campo Obligatorio"></p:inputText>
+                            <p:message for="txtNombre"></p:message>
+
+                            <p:outputLabel for="numDias" value="Número de días de cosecha: "></p:outputLabel>
+                            <p:inputNumber id="numDias" value="#{tiposDePlantasManagedBean.tiposDePlantas.diascosecha}" required="true" requiredMessage="Campo Obligatorio" decimalPlaces="0" minValue="1"></p:inputNumber>
+                            <p:message for="numDias"></p:message>
+
+                            <p:outputLabel for="txtDescripcion" value="Descripción: "></p:outputLabel>
+                            <h:panelGrid columns="1">
+                                <p:inputTextarea id="txtDescripcion" rows="5" cols="30" counter="display" maxlength="1000" counterTemplate="{0} carácteres restantes." autoResize="true" value="#{tiposDePlantasManagedBean.tiposDePlantas.descripcion}"></p:inputTextarea>
+                                <h:outputText id="display"></h:outputText>
+                            </h:panelGrid>
+                            <p:message for="txtDescripcion"></p:message>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Grabar" action="#{tiposDePlantasManagedBean.grabar()}" update="panelCentral"></p:commandButton>
+                            <p:commandButton value="Cancelar" action="#{tiposDePlantasManagedBean.cancelar()}" update="panelCentral" immediate="true"></p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:panelGrid>
             </ui:define>
         </ui:composition>
     </h:body>

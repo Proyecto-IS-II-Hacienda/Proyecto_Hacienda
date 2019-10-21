@@ -3,10 +3,12 @@
   <persistence-unit name="grupo6_ProyectoHacienda-ejb_ejb_1.0-SNAPSHOTPU" transaction-type="JTA">
 
 
+
     <jta-data-source>jdbc/proyectoHacienda</jta-data-source>
 
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+
       <property name="eclipselink.logging.level" value="FINE"/>
     </properties>
   </persistence-unit>

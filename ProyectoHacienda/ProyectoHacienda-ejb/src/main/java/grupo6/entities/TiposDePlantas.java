@@ -53,7 +53,7 @@ public class TiposDePlantas implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nombredeplanta", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tiposDePlanta", fetch = FetchType.LAZY)
     private List<Plantas> plantasList;
 
     public TiposDePlantas() {
