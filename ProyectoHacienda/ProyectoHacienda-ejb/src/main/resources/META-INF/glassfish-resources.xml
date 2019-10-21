@@ -2,7 +2,7 @@
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
 
-  <jdbc-resource enabled="true" jndi-name="jdbc/hacienda" object-type="user" pool-name="haciendaPool">
+  <jdbc-resource enabled="true" jndi-name="jdbc/proyectoHacienda" object-type="user" pool-name="poolProyectoHacienda">
     <description/>
   </jdbc-resource>
 
