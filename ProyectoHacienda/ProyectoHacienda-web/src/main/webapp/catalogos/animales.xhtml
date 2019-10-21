@@ -3,22 +3,110 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Animales</title>
     </h:head>
     <h:body>
-        <ui:composition template="../index.xhtml">
+                <ui:composition template="../index.xhtml">
             <ui:define name="content">
                 <p:messages showDetail="true" showSummary="true">
                     <p:autoUpdate></p:autoUpdate>
                 </p:messages>
-               
-                
-                
-                
 
-            </ui:define>
+    <h:panelGrid id="panelCentral">
+        <p:panel  header="#{animalesManagedBean.animal == null ?'Ingreso':'Actualización'} Animales" rendered="#{animalesManagedBean.animal != null}">
+                <h:panelGrid columns="3">
+
+                    <p:outputLabel value="Código:" for="inputCodigo"></p:outputLabel>
+                    <p:inputText id ="inputCodigo" value="#{animalesManagedBean.animal.codanimal}" required="true" requiredMessage="Campo obligadotorio."  ></p:inputText>
+                    <p:message for="inputCodigo" ></p:message>
+
+                    <p:outputLabel value="Tipo de Animal:" for="inputTipodeAnimal"></p:outputLabel>
+                    <p:selectOneMenu id = "inputTipodeAnimal" value="#{animalesManagedBean.animal.tiposDeAnimales}" required="true" requiredMessage="Campo obligadotorio." converter="omnifaces.SelectItemsConverter">
+                        <f:selectItems value="#{animalesManagedBean.listaTiposAnimales}" var="tip" itemLabel="#{tip.tiposDeAnimalesPK.nombre.replace('0', '')} #{tip.tiposDeAnimalesPK.raza.replace('0', '')}" itemValue="#{tip}"></f:selectItems>
+                    </p:selectOneMenu>
+                    <p:message for="inputTipodeAnimal" ></p:message>
+
+                    <p:outputLabel value="Peso (kg):" for="inputPeso"></p:outputLabel>
+                    <p:inputNumber id="inputPeso" value="#{animalesManagedBean.animal.peso}" required="true" requiredMessage="Campo obligadotorio."></p:inputNumber>
+                    <p:message for="inputPeso" ></p:message>
+                    
+                    <p:outputLabel value="Altura (cm):" for="inputAltura"></p:outputLabel>
+                    <p:inputNumber id="inputAltura" value="#{animalesManagedBean.animal.altura}" required="true" requiredMessage="Campo obligadotorio."></p:inputNumber>
+                    <p:message for="inputAltura" ></p:message>
+                    
+                    <p:outputLabel value="Fecha de Nacimiento:" for="inputFechaDeNacimiento"></p:outputLabel>
+                    <p:calendar id="inputFechaDeNacimiento" value="#{animalesManagedBean.animal.fechanacimiento}" required="true" requiredMessage="Campo obligadotorio."></p:calendar>>
+                    <p:message for="inputFechaDeNacimiento" ></p:message>
+                    
+                    <p:outputLabel value="Género:" for="inputGenero"></p:outputLabel>
+                    <p:selectOneRadio id = "inputGenero" value="#{animalesManagedBean.animal.genero}" required="true" requiredMessage="Campo obligadotorio." unselectable="false">
+                    <f:selectItem itemLabel="M" itemValue="M"></f:selectItem>
+                    <f:selectItem itemLabel="H" itemValue="H"></f:selectItem>
+                    </p:selectOneRadio>
+                    <p:message for="inputGenero" ></p:message>
+
+
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Grabar" action="#{animalesManagedBean.grabar()}" update="form1:panelCentral" ></p:commandButton>
+                    <p:commandButton value="Cancelar" action="#{tiposDeAnimalesManagedBean.vaciar()}" update="form1:panelCentral" immediate="true"></p:commandButton>
+                </h:panelGrid>
+            </p:panel>         
+        <p:panel header="Animales" rendered="#{animalesManagedBean.animal == null}">
+            <p:commandButton icon="ui-icon-plus" action="#{animalesManagedBean.nuevo()}" update="form1:panelCentral"></p:commandButton>
+            <p:dataTable id="dtAnimal" value="#{animalesManagedBean.listaAnimales}" var="an" paginator="true" rows="10">
+
+                <p:column headerText="Código" style="width: auto;" sortBy="#{an.codanimal}" filterBy="#{an.codanimal}">
+                    <h:outputLabel value="#{an.codanimal.replace('0', '')}"></h:outputLabel>
+                    </p:column>
+                
+                <p:column headerText="Tipos de Animales" >
+                    <h:outputLabel value="#{an.tiposDeAnimales.tiposDeAnimalesPK.nombre.replace('0', '')} #{an.tiposDeAnimales.tiposDeAnimalesPK.raza.replace('0', '')}"></h:outputLabel>
+                    </p:column>
+                
+                <p:column headerText="Peso" >
+                    <h:outputLabel value="#{an.peso}"></h:outputLabel>
+                    </p:column>
+                
+                <p:column headerText="Altura" >
+                    <h:outputLabel value="#{an.altura}"></h:outputLabel>
+                    </p:column>
+                
+                <p:column headerText="Fecha de nacimiento" >
+                    <h:outputLabel value="#{an.fechanacimiento}">
+                       <f:convertDateTime parent="dd/MMM/YYYY" locale="EC"></f:convertDateTime>
+                    </h:outputLabel>
+                </p:column>
+                
+                <p:column headerText="género" >
+                    <h:outputLabel value="#{an.genero}"></h:outputLabel>
+                    </p:column>
+                
+                    <p:column headerText="Editar" >
+                        <center>
+                            <p:commandButton icon="ui-icon-pencil" action="#{animalesManagedBean.seleccionar(an)}" update="form1:panelCentral"></p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
+                            
+                                </center>
+                    </p:column>
+                
+                    <p:column headerText="Eliminar">
+                        <center>
+                            <p:commandButton icon="ui-icon-trash" action="#{animalesManagedBean.eliminar(an)}" update="form1:panelCentral">
+                                <p:confirm header="Aviso" message="¿Esta seguro de que desea eliminar al animal #{an.codanimal.replace('0', ' ')}?"></p:confirm>
+                            </p:commandButton> <!-- https://api.jqueryui.com/resources/icons-list.html -->
+                        </center>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+    </h:panelGrid>
+                
+            </ui:define>    
+
+
         </ui:composition>
+        
     </h:body>
 </html>
