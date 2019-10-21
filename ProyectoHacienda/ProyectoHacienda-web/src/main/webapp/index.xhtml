@@ -35,25 +35,26 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" style="width: 100%;">    
+                <p:layoutUnit position="north">    
                     <h:panelGrid id="baseMenu" style="width: 100%;">
                         <h:panelGrid columns="2" style="width: 100%;" >                     
                             <p:outputLabel value="SISTEMA DE GESTIÓN DE HACIENDA" ></p:outputLabel>
 
                             <p:commandButton value="Login" action="#{indexManagedBean.lanzarVentana()}" rendered="#{!indexManagedBean.logueado}" >
-                                <p:ajax event="dialogReturn" update="form1:baseMenu"></p:ajax>
+                                <p:ajax event="dialogReturn" update="form1"></p:ajax>
                             </p:commandButton>     
-                            <p:commandButton value="Logout" action="#{indexManagedBean.logout()}" rendered="#{indexManagedBean.logueado}" update="form1:baseMenu">
+                            <p:commandButton value="Logout" action="#{indexManagedBean.logout()}" rendered="#{indexManagedBean.logueado}" update="form1">
                             </p:commandButton>   
-                        </h:panelGrid>                 
-                        <h:panelGrid columns="4" style="width:100%;" rendered="#{indexManagedBean.logueado}">
+                        </h:panelGrid>  
+                        <h:panelGrid rendered="#{indexManagedBean.logueado}" style="width:100%;">
+                        <h:panelGrid columns="4" style="width:100%;">
                             <p:outputLabel value="Usuario: "/>
                             <h:outputLabel value="#{indexManagedBean.usuarioLogueado.nombre}" style="color: blue;"></h:outputLabel>
                             <p:outputLabel value="Rol: "/>
                             <h:outputLabel value="#{indexManagedBean.usuarioLogueado.rol}" style="color: blue;"></h:outputLabel>
 
                         </h:panelGrid>
-                        <p:megaMenu orientation="horizontal" rendered="#{indexManagedBean.logueado}">
+                        <p:megaMenu orientation="horizontal">
                             <p:submenu label="Catálogos" icon="pi pi-pencil">
                                 <p:column>
                                     <p:submenu label="Interno">
@@ -85,12 +86,13 @@
                             </p:submenu>                       
                         </p:megaMenu>
                     </h:panelGrid>
+                        </h:panelGrid>
                 </p:layoutUnit>            
                 <p:layoutUnit position="south" size="50">
                     <p:outputLabel value="Producción..."></p:outputLabel>
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
-                    <ui:insert name="content"></ui:insert>
+                    <ui:insert name="content" rendered="#{indexManagedBean.logueado}"></ui:insert>
                 </p:layoutUnit>
             </p:layout>
         </h:form>
