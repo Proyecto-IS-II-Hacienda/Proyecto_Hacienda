@@ -1,5 +1,5 @@
 
-package grupo6.manage_beans;
+package grupo6.managed_beans;
 
 import grupo6.entities.Insumos;
 import grupo6.sessions.InsumosFacadeLocal;

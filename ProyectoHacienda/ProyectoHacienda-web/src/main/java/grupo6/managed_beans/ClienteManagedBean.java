@@ -1,5 +1,5 @@
 
-package grupo6.manage_beans;
+package grupo6.managed_beans;
 
 import grupo6.entities.Clientes;
 import grupo6.sessions.ClientesFacadeLocal;

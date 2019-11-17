@@ -41,9 +41,9 @@
                             <p:outputLabel value="SISTEMA DE GESTIÓN DE HACIENDA" ></p:outputLabel>
 
                             <p:commandButton value="Login" action="#{indexManagedBean.lanzarVentana()}" rendered="#{!indexManagedBean.logueado}" >
-                                <p:ajax event="dialogReturn" update="form1"></p:ajax>
+                                <p:ajax event="dialogReturn" update="form1:baseMenu"></p:ajax>
                             </p:commandButton>     
-                            <p:commandButton value="Logout" action="#{indexManagedBean.logout()}" rendered="#{indexManagedBean.logueado}" update="form1">
+                            <p:commandButton value="Logout" action="#{indexManagedBean.logout()}" rendered="#{indexManagedBean.logueado}" update="form1:baseMenu">
                             </p:commandButton>   
                         </h:panelGrid>  
                         <h:panelGrid rendered="#{indexManagedBean.logueado}" style="width:100%;">

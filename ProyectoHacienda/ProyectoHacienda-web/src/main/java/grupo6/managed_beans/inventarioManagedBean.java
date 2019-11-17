@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package grupo6.managedBeans;
+package grupo6.managed_beans;
 
 import grupo6.entities.Insumos;
 import grupo6.entities.InventarioInsumos;
